@@ -188,17 +188,6 @@ Content-Security-Policy-Report-Only: default-src https: data: 'unsafe-eval' 'uns
 > クライアントは利用者が自分の知っているパスワードとして入力した文字列と「チャレンジ」を組み合わせ、これをハッシュ関数に通してハッシュ値に変換したものを「**レスポンス**」としてサーバに返信する。
 > サーバは手元の認証情報から正しいパスワードとチャレンジを組み合わせてハッシュ値を算出し、「レスポンス」と比較、照合。合致すれば、パスワードも正しいことがわかるので、認証成功。
 
-### リーティングリスト
-
-- [WebAPIについての説明 - Qiita](https://qiita.com/busyoumono99/items/9b5ffd35dd521bafce47)
-- [翻訳: WebAPI 設計のベストプラクティス - Qiita](https://qiita.com/mserizawa/items/b833e407d89abd21ee72)
-- [「WebAPI 設計のベストプラクティス」に対する所感 - Qiita](https://qiita.com/ryo88c/items/0a3c7861015861026e00)
-- [GoogleのWebAPI設計とWebAPI設計のベストプラクティスを比較してみる - Qiita](https://qiita.com/howdy39/items/3b2b14ce73ec44c54f7b)
-- [API 設計ガイド  |  Cloud API  |  Google Cloud](https://cloud.google.com/apis/design/)
-- [Web APIとは何なのか - Qiita](https://qiita.com/NagaokaKenichi/items/df4c8455ab527aeacf02)
-- [オープンAPIとOpen APIととWeb APIとREST APIの違い。 - 自分の仕事を憎むには人生は余りにも短い](http://garapon.hatenablog.com/entry/2016/10/25/_%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3API%E3%81%A8Open_API%E3%81%A8%E3%81%A8Web_API%E3%81%A8REST_API%E3%81%AE%E9%81%95%E3%81%84%E3%80%82)
-- [REST APIについてのお勉強1 - Qiita](https://qiita.com/bonk/items/739e540ab1e5ceec43e8#_reference-f4b9d735bad821f6aa85)
-
 ## Browsers and how they work?-ブラウザとその仕組み
 
 ### ブラウザとは
