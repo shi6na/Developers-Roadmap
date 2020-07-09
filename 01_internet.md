@@ -134,7 +134,8 @@ HTTPのレスポンス具合を表す３桁のコード。よく見かけるの�
 - **ヘッダ**  
 
 リクエストの時と同じでいろいろと書いてある。以下一例。
-```
+
+```zsh
 Date: Sun, 25 Mar 2018 14:19:50 GMT
 Content-Type: text/html; charset=utf-8
 Transfer-Encoding: chunked
