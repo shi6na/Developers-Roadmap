@@ -81,7 +81,8 @@ HTTPのリクエストは、**リクエストライン**、**ヘッダ**、（�
 - **ヘッダ**  
 要求についてのことや、クライアント（要求者）についてのあれこれが書かれている。以下は例。
 
-`Host: localhost:8080
+```
+Host: localhost:8080
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.54 Safari/536.5
 Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
 Accept-Language: ja,en-us;q=0.7,en;q=0.3
@@ -90,7 +91,8 @@ Accept-Charset: Shift_JIS,utf-8;q=0.7,*;q=0.7
 Keep-Alive: 300
 Connection: keep-alive
 Content-Type: text/plain
-Content-Length: 23`
+Content-Length: 23
+```
 
 - 意味（一部）
   - `Host`：必須項目！クライアントからサーバに対して、クライアントのサーバ名を送信する。`localhost`の`8080`ポートからアクセスしてるぞ、の意。
@@ -132,7 +134,8 @@ HTTPのレスポンス具合を表す３桁のコード。よく見かけるの�
 - **ヘッダ**  
 
 リクエストの時と同じでいろいろと書いてある。以下一例。
-`Date: Sun, 25 Mar 2018 14:19:50 GMT
+```
+Date: Sun, 25 Mar 2018 14:19:50 GMT
 Content-Type: text/html; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
@@ -146,7 +149,8 @@ Set-Cookie: _qiita_login_session=YWZlZ3Jld2d3aW9lZ3Zkbmp2Y252ZGthamZnaWVv; domai
 X-Runtime: 0.253271
 Strict-Transport-Security: max-age=2592000
 X-Request-Id: 1650d346-2ed3-4bcb-9789-ed404ae13d31
-Content-Security-Policy-Report-Only: default-src https: data: 'unsafe-eval' 'unsafe-inline'; report-uri https://us-central1-qiita-csp-report.cloudfunctions.net/csp-report`
+Content-Security-Policy-Report-Only: default-src https: data: 'unsafe-eval' 'unsafe-inline'; report-uri https://us-central1-qiita-csp-report.cloudfunctions.net/csp-report
+```
 
 - 意味（一部。リクエストと同じ意味のものは略。）
   - `Date`：日付情報。レスポンスを返した段階の年月日、時間。
