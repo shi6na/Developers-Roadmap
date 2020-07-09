@@ -81,7 +81,7 @@ HTTPのリクエストは、**リクエストライン**、**ヘッダ**、（�
 - **ヘッダ**  
 要求についてのことや、クライアント（要求者）についてのあれこれが書かれている。以下は例。
 
-```
+```zsh
 Host: localhost:8080
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.54 Safari/536.5
 Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
