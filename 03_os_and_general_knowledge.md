@@ -203,7 +203,7 @@ sudoコマンドを使えばシステムに対してあらゆる操作が行え�
 
 ※プロセス = 命令、動作中のプログラム
 
-## Threads anda Concurrency
+## Threads and Concurrency
 
 ## Basic Terminal Commands
 
