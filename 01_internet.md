@@ -161,6 +161,8 @@ Content-Security-Policy-Report-Only: default-src https: data: 'unsafe-eval' 'uns
 ```
 
 - 意味（一部。リクエストと同じ意味のものは略。）
+| 項目名 | 説明　|
+| --- | --- |
 | `Date` | 日付情報。レスポンスを返した段階の年月日、時間。 |
 | `Transfer-Encoding` | 利用されている転送エンコーディング形式。HTTP1.1では[チャンク形式](http://e-words.jp/w/%E3%83%81%E3%83%A3%E3%83%B3%E3%82%AF.html)が定義されている、ということで`chunked`。 |
 | `Server` | サーバからクライアントに対して、サーバ情報を返す。今回だとnginxというサーバを使ってますよの意。↔︎`Host` |
