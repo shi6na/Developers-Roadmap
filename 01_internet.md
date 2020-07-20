@@ -160,7 +160,6 @@ X-Request-Id: 1650d346-2ed3-4bcb-9789-ed404ae13d31
 Content-Security-Policy-Report-Only: default-src https: data: 'unsafe-eval' 'unsafe-inline'; report-uri https://us-central1-qiita-csp-report.cloudfunctions.net/csp-report
 ```
 
-- 意味（一部。リクエストと同じ意味のものは略。）
 | 項目名 | 説明　|
 | --- | --- |
 | `Date` | 日付情報。レスポンスを返した段階の年月日、時間。 |
