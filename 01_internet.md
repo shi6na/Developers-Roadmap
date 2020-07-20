@@ -172,7 +172,7 @@ Content-Security-Policy-Report-Only: default-src https: data: 'unsafe-eval' 'uns
 | `Cache-Control` | キャッシュに関する指示を表す。 |
 | `Set-Cookie` | Cookieの設定。 |
 | `X-Runtime` | サーバでの処理時間。レスポンスタイムともいう。この項目をヒントにサイドチャネル攻撃ができてしまうという話があるので、心配ならこの項目はつけない方が良いかもしれない。→[x-runtime は消すべきなのか - Qiita](https://qiita.com/yuku_t/items/09f017c47b780e49422b) |
-| `Strict-Transport-Security` | サーバがブラウザ（クライアント）に、HTTPの代わりにHTTPSを用いて通信しなさいと指示するためのもの。これをつけるとHTTPのサイトを一切読み込まず、全てのアクセスを自動的にHTTPからHTTPSリクエストに変換するよう指示することができる。なんて便利なんだ。`max-age`は、ブラウザに「このサイトはHTTPSだけで接続するんだぞ」ということを覚えさせておく時間。今回の例で言えば2592000秒（=一ヶ月）覚えさせる。ここの解説がわかりやすいので読んでほしい→[Strict-Transport-Security - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Strict-Transport-Security) |
+| `Strict-Transport-Security` | サーバがブラウザ（クライアント）に、HTTPの代わりにHTTPSを用いて通信しなさいと指示するためのもの。これをつけるとHTTPのサイトを一切読み込まず、全てのアクセスを自動的にHTTPからHTTPSリクエストに変換するよう指示することができる。なんて便利なんだ。`max-age`は、ブラウザに「このサイトはHTTPSだけで接続するんだぞ」ということを覚えさせておく時間。今回の例で言えば2592000秒（=一ヶ月）覚えさせる。ここの解説がわかりやすいので読んでほしい→[Strict-Transport-Security - HTTP \| MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Strict-Transport-Security) |
 | `X-Request-Id` | サーバは個々のリクエストに固有のユニークな文字列でIDをつけてくれる。それ示すフィールド。ここをいじると`grep`とかしやすくなる。 |
 | `Content-Security-Policy-Report-Only` | 長！これをつけると、セキュリティポリシーに違反したらレポートを送ってくれる。ので、セキュリティポリシーの効果を監視することができる。 |
 
