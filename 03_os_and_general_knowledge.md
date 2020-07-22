@@ -282,12 +282,47 @@ macOSでは、デフォルトでrootにログインしたり、一時的にroot�
 
 - 「オーク」と読む。空白などで区切られたテキストを処理するコマンドで、演算機能もあり、プログラミング言語としても使用されている。
 - コマンドっぽく使えるだけで、正確にはコマンドではなく「AWKスクリプト・インタプリタ。」
+- スクリプトの箇所は「パターン文」と「アクション文」から成り立つ。
+- awk 'パターン文 {アクション文}' 入力ファイルのパス
 
-#### 実行してみた
+#### 実行してみた - 入力ファイルの中身を出力
 
 ```zsh
-%
+% awk '{print $0}' 02_basic_frontend_knowledge/sample.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=M+PLUS+Rounded+1c:wght@300;800&display=swap" rel="stylesheet">
+  <title>Developer Roadmap</title>
+</head>
+<body>
+  <div class="main">
+    <div class="card">
+      <h1 class="title">フォームに入力した文字を下に表示するやつ</h1>
+      <form action="#">
+        <input type="text" id="input_message" class="textbox">
+        <input type="button" class="btn_submit" value="送信" onclick="getInput()">
+      </form>
+      <p id="output_message" class="output_message"></p>
+      <script src="getInput.js"></script>
+    </div>
+  </div>
+</body>
+</html>
 ```
+
+#### 実行してみた - パターン一致
+
+```zsh
+% awk '/meta/ {print $0}' 02_basic_frontend_knowledge/sample.html
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+- パターンは正規表現で書くこと。
 
 ### sed
 
