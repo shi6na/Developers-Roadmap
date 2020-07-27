@@ -280,39 +280,55 @@ macOSでは、デフォルトでrootにログインしたり、一時的にroot�
 
 `awk 'スクリプト' 入力ファイルのパス`
 
-- 「オーク」と読む。空白などで区切られたテキストを処理するコマンドで、演算機能もあり、プログラミング言語としても使用されている。
+- 「オーク」と読む。コマンドラインから簡単にテキストをフィルターしたり、表示を整えたり、値を集計したりできる。
+- ポイントは「コマンドラインから簡単にテキストを操作する」こと。コマンドラインから出力したテキストをその場で処理するのに大変便利。
 - コマンドっぽく使えるだけで、正確にはコマンドではなく「AWKスクリプト・インタプリタ。」
 - スクリプトの箇所は「パターン文」と「アクション文」から成り立つ。
 - `awk 'パターン文 {アクション文}' 入力ファイルのパス`
 
+#### 組込変数
+
+| 名称 | 説明 | デフォルト値 |
+| --- | --- | --- |
+| $0 | レコード全体 |
+| $n | レコード(列)のn番目 |
+| RS | Record Separator - 入力のレコード区切り文字 | 改行 |
+| FS | Field Separator - 入力のフィールド区切り文字 | 連続するスペースorタブ文字 |
+| ORS | Output Record Separator - 出力のレコード区切り文字 | 改行 |
+| OFS | Output Field Separator - 出力のフィールド区切り文字 | スペース１つ |
+| NR | Number of Record - 現在のレコード数 |
+| NF | Number of Field - 現在のレコードのフィールド数 |
+
 #### 実行してみた - 入力ファイルの中身を出力
 
 ```zsh
-% awk '{print $0}' 02_basic_frontend_knowledge/sample.html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=M+PLUS+Rounded+1c:wght@300;800&display=swap" rel="stylesheet">
-  <title>Developer Roadmap</title>
-</head>
-<body>
-  <div class="main">
-    <div class="card">
-      <h1 class="title">フォームに入力した文字を下に表示するやつ</h1>
-      <form action="#">
-        <input type="text" id="input_message" class="textbox">
-        <input type="button" class="btn_submit" value="送信" onclick="getInput()">
-      </form>
-      <p id="output_message" class="output_message"></p>
-      <script src="getInput.js"></script>
-    </div>
-  </div>
-</body>
-</html>
+% awk '{print NR "\t" $0}' 02_basic_frontend_knowledge/sample.html
+1       <!DOCTYPE html>
+2       <html lang="ja">
+3       <head>
+4         <meta charset="UTF-8">
+5         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6         <link rel="stylesheet" href="style.css">
+7         <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=M+PLUS+Rounded+1c:wght@300;800&display=swap" rel="stylesheet">
+8         <title>Developer Roadmap</title>
+9       </head>
+10      <body>
+11        <div class="main">
+12          <div class="card">
+13            <h1 class="title">フォームに入力した文字を下に表示するやつ</h1>
+14            <form action="#">
+15              <input type="text" id="input_message" class="textbox">
+16              <input type="button" class="btn_submit" value="送信" onclick="getInput()">
+17            </form>
+18            <p id="output_message" class="output_message"></p>
+19            <script src="getInput.js"></script>
+20          </div>
+21        </div>
+22      </body>
+23      </html>
 ```
+
+- `NR "\t"`で行番号を表示させることが可能。
 
 #### 実行してみた - パターン一致
 
@@ -322,9 +338,35 @@ macOSでは、デフォルトでrootにログインしたり、一時的にroot�
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 
-- パターンは正規表現で書くこと。
+- パターンは正規表現で。
+
+#### 実行してみた - 集計
+
+例えば、rootが起動しているプロセスのCPU使用率合計が知りたい時。  
+まずは全てのプロセスとCPU使用率を表示。
+
+```zsh
+% ps aux
+USER               PID  %CPU %MEM      VSZ    RSS   TT  STAT STARTED      TIME COMMAND
+miyasato-pc       1461  84.1  3.8  9111452 1266244   ??  S     9:32AM 325:54.66 /Applications/Snap Camera.app/Contents/MacOS/Snap Camera
+miyasato-pc       3848  16.5  0.7 25628312 242376   ??  S     2:00PM   3:35.13 /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/84.0.4147.89/Helpers/Google Chr
+〜〜〜
+〜〜〜
+miyasato-pc       3896   0.0  0.0  4341312   2468   ??  S     2:05PM   0:00.01 /System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/XPCServices/com.apple.tonelibraryd.xpc/Contents/MacOS/com.a
+```
+
+この出力を保存してrubyなり何なりで手を加えても良いが、awkを使うと全表示も含め1行で済む。
+
+```zsh
+% ps aux | awk '$1 == "root" {s += $3} END {print s}'
+0.4
+```
+
+平和。
 
 ### sed
+
+
 
 ### lsof
 
