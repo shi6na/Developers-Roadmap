@@ -397,6 +397,26 @@ miyasato-pc       3896   0.0  0.0  4341312   2468   ??  S     2:05PM   0:00.01 /
 
 ### lsof
 
+- 「**LiSt Open Files**」（開いているファイル群を列挙する）
+- 「プロセスが開いているファイル」を表示するコマンド。
+- >UNIX／Linuxでは、一般的なファイルだけでなく、ネットワークソケットやデバイスドライバー、プロセス情報なども「ファイル」として扱います。そのため、開かれているファイルを調べることで、待機ポートやネットワークのマッピング情報などを把握できます。
+- >lsofコマンドによって「あるファイルを開いているプロセス」「あるポートにアクセスしているプロセス」を特定し、「不要なプログラムが実行されていないか」「不正なプログラムが動作していないか」を調べることができます。
+
+```zsh
+% lsof -iTCP
+COMMAND     PID        USER   FD   TYPE            DEVICE SIZE/OFF NODE NAME
+Notion      507 miyasato-pc   47u  IPv4 0x8e0459f36a5232d      0t0  TCP 10.10.111.55:64149->104.18.23.110:https (ESTABLISHED)
+Notion      507 miyasato-pc   73u  IPv4 0x8e0459f3696294d      0t0  TCP 10.10.111.55:62415->ec2-34-237-73-95.compute-1.amazonaws.com:https (ESTABLISHED)
+Slack\x20   568 miyasato-pc   20u  IPv4 0x8e0459f295bd58d      0t0  TCP 10.10.111.55:61889->ec2-18-178-165-242.ap-northeast-1.compute.amazonaws.com:https (ESTABLISHED)
+~~~
+~~~
+Snap\x20C  1461 miyasato-pc   35u  IPv4 0x8e0459f3ac431cd      0t0  TCP 10.10.111.55:64501->nrt13s50-in-f19.1e100.net:https (ESTABLISHED)
+git-crede  1884 miyasato-pc    5u  IPv4 0x8e0459f2ec791cd      0t0  TCP 10.10.111.64:50121->ec2-13-114-40-48.ap-northeast-1.compute.amazonaws.com:https (CLOSED)
+com.docke  9677 miyasato-pc   25u  IPv6 0x8e0459f2bdd7c9d      0t0  TCP *:5506 (LISTEN)
+com.docke  9677 miyasato-pc   26u  IPv6 0x8e0459f2bddad9d      0t0  TCP *:hbci (LISTEN)
+com.docke 10342 miyasato-pc   10u  IPv4 0x8e0459f295bf32d      0t0  TCP localhost:57381 (LISTEN)
+```
+
 ### curl
 
 ### wget
