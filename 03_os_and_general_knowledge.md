@@ -223,7 +223,7 @@
 
 - 実際に物理的に複数の処理を同時に実行する処理方式のこと。
 - 複数のCPUを用いて実行する。ただし、マルチコアプロセッサに対応したシステムでないと実現できないので注意。
-- 単一の処理装置を用いる場合に比べ、最大で装置の数を乗じた処理性能（プロセッサ4基なら4倍）を発揮できる可能性がある。
+- 単一の処理装置を用いる場合に比べ、最大で装置の数を乗じた処理性能（プロセッサ4基なら4倍）を発揮できる可能性がある。
 
 ## Basic Terminal Commands
 
@@ -355,7 +355,7 @@ miyasato-pc       3848  16.5  0.7 25628312 242376   ??  S     2:00PM   3:35.13 /
 miyasato-pc       3896   0.0  0.0  4341312   2468   ??  S     2:05PM   0:00.01 /System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/XPCServices/com.apple.tonelibraryd.xpc/Contents/MacOS/com.a
 ```
 
-この出力を保存してrubyなり何なりで手を加えても良いが、awkを使うと全表示も含め1行で済む。
+この出力を保存してrubyなり何なりで手を加えても良いが、awkを使うと全表示も含め1行で済む。
 
 ```zsh
 % ps aux | awk '$1 == "root" {s += $3} END {print s}'
@@ -369,6 +369,26 @@ miyasato-pc       3896   0.0  0.0  4341312   2468   ??  S     2:05PM   0:00.01 /
 `sed [オプション] スクリプトコマンド 入力ファイル`
 
 - **Stream EDitor**の略で、指定したファイルをコマンドに従って処理し、標準出力へ出力する。
+- コマンドと対象となる「スクリプト」によって、テキストファイルを編集するコマンド。テキストファイルに直接手を加えるわけではない。(-iオプションをつけたら直接編集)
+- 例えば、「sed s/abc/ABC/ ファイル名」で、指定したファイル内の「abc」を「ABC」に置き換えることができるが、この「s/abc/ABC/」部分が、sedのスクリプト。
+- パイプラインやリダイレクトを活用するのが一般的。
+
+#### 実行してみた - binをBINに置き換えて出力
+
+```zsh
+% cat /etc/shells | sed s/bin/BIN/
+# List of acceptable shells for chpass(1).
+# Ftpd will not allow users to connect who are not using
+# one of these shells.
+
+/BIN/bash
+/BIN/csh
+/BIN/dash
+/BIN/ksh
+/BIN/sh
+/BIN/tcsh
+/BIN/zsh
+```
 
 ### lsof
 
