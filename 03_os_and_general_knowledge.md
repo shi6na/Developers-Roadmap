@@ -454,6 +454,10 @@ Google    1081 miyasato-pc   40u  IPv4 0x8e0459f36da232d      0t0  TCP 10.10.111
 | CLOSING | FIN_WAIT1でFINを受け取り接続が閉じられた状態 |
 | UNKNOWN | 状態不明のソケット |
 
+#### 参考文献
+
+[プログラマーが「ネットワーク怪しくない？」と思った時に覚えておくと便利なことまとめ - LIVESENSE ENGINEER BLOG](https://made.livesense.co.jp/entry/2016/05/10/083000)
+
 ### curl
 
 ### wget
