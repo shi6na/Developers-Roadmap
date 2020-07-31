@@ -402,6 +402,8 @@ miyasato-pc       3896   0.0  0.0  4341312   2468   ??  S     2:05PM   0:00.01 /
 - >UNIX／Linuxでは、一般的なファイルだけでなく、ネットワークソケットやデバイスドライバー、プロセス情報なども「ファイル」として扱います。そのため、開かれているファイルを調べることで、待機ポートやネットワークのマッピング情報などを把握できます。
 - >lsofコマンドによって「あるファイルを開いているプロセス」「あるポートにアクセスしているプロセス」を特定し、「不要なプログラムが実行されていないか」「不正なプログラムが動作していないか」を調べることができます。
 
+#### 実行してみた - TCP通信のプロセスを調べる
+
 ```zsh
 % lsof -iTCP
 COMMAND     PID        USER   FD   TYPE            DEVICE SIZE/OFF NODE NAME
@@ -416,6 +418,41 @@ com.docke  9677 miyasato-pc   25u  IPv6 0x8e0459f2bdd7c9d      0t0  TCP *:5506 (
 com.docke  9677 miyasato-pc   26u  IPv6 0x8e0459f2bddad9d      0t0  TCP *:hbci (LISTEN)
 com.docke 10342 miyasato-pc   10u  IPv4 0x8e0459f295bf32d      0t0  TCP localhost:57381 (LISTEN)
 ```
+
+#### 実行してみた - ポート番号80(`http`)を使用しているプロセスを調べる
+
+```zsh
+% lsof -i:80
+COMMAND    PID        USER   FD   TYPE            DEVICE SIZE/OFF NODE NAME
+Google    1081 miyasato-pc   30u  IPv4 0x8e0459f2ec7af6d      0t0  TCP 10.10.111.58:56418->nrt12s23-in-f14.1e100.net:http (CLOSE_WAIT)
+Google    1081 miyasato-pc   40u  IPv4 0x8e0459f36da232d      0t0  TCP 10.10.111.58:56419->p077.net027121054.biz.tokai.or.jp:http (CLOSE_WAIT)
+```
+
+- `-P`をつけるとサービス名(`http`)に変換されずポート番号(`80`)のまま表示される。
+
+```zsh
+% lsof -i:80 -P
+COMMAND    PID        USER   FD   TYPE            DEVICE SIZE/OFF NODE NAME
+Google    1081 miyasato-pc   30u  IPv4 0x8e0459f2ec7af6d      0t0  TCP 10.10.111.58:56418->nrt12s23-in-f14.1e100.net:80 (CLOSE_WAIT)
+Google    1081 miyasato-pc   40u  IPv4 0x8e0459f36da232d      0t0  TCP 10.10.111.58:56419->p077.net027121054.biz.tokai.or.jp:80 (CLOSE_WAIT)
+```
+
+#### 補足 - TCPの状態
+
+| 状態 | 説明 |
+| --- | --- |
+| LISTEN | 接続待受状態|
+| ESTABLISHED | 接続が確立されている状態 |
+| SYN_SENT | 接続要求(SYN)を送信した状態(応答/ACKは受けてない状態) |
+| SYN_RECV | 接続要求(SYN)を受け取った状態 |
+| FIN_WAIT1 | ソケットを閉じ、接続を落としている状態 |
+| FIN_WAIT2 | 接続はクローズされ、ソケ ットはリモート側からの切断を待っている状態 |
+| TIME_WAIT | 接続終了を待っている状態 |
+| CLOSED | ソケットが使用されていない |
+| CLOSE_WAIT | 接続相手はクローズし、自身はクローズ待ちの状態 |
+| LAST_ACK | FINに対する応答(ACK)待ち |
+| CLOSING | FIN_WAIT1でFINを受け取り接続が閉じられた状態 |
+| UNKNOWN | 状態不明のソケット |
 
 ### curl
 
