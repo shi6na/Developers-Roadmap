@@ -173,7 +173,7 @@ Content-Security-Policy-Report-Only: default-src https: data: 'unsafe-eval' 'uns
 | `X-Frame-Options` | ちょっと特殊なフィールド。ブラウザがページを`<frame>`、`<iframe>`、`<emded>`、`<object>`の中に表示することを許可するかどうかを示す。ここで[クリックジャッキング攻撃](https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B8%E3%83%A3%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0)対策ができる。今回は`SAMEORIGIN`なので同じオリジンのページに含まれるページのフレーム内でのみ表示される。|
 | `X-XSS-Protection` | さっきと似ているが、今度は[XSS（クロスサイトスクリプティング）](https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%82%B9%E3%82%B5%E3%82%A4%E3%83%88%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0)対策に使われるフィールド。これを有効にしておくと、XSSを検知した時に、ページの読み込みを停止してくれる。今回は`1; mode=block`なのでXSSフィルタリングは有効化され、ページのサニタイジングよりもレンダリング停止を優先する。標準だとブラウザ側でこの機能が有効になっているはずだが、何らかの理由で無効になっている時に、このヘッダフィールドが役に立つ。
 | `X-Content-Type-Options: nosniff` | `Content-Type`フィールドで指定されたコンテンツタイプが変更されずに従われるべきであることを示す。コンテンツの盗聴をブロックすることができる。`nosniff`まででワンセット。ブラウザがIEの場合特に大事らしく、「IE、[Content sniffingはするなよ](https://www.atmarkit.co.jp/ait/articles/0903/30/news118.html)、」ということ。リクエストされたタイプが「`style`なのに、指定したタイプが`text/css`でない」もしくは「`script`なのに、`Javascript`MIMEタイプではない」場合、そのリクエストはブロックされる。 |
-| `ETag` | エンティティとそのバージョンを一意に識別する識別子を示す。エンティティ(E)タグ(Tag)？ |
+| `ETag` | HTTPにおけるキャッシュの有効性確認の手段の1つで、エンティティとそのバージョンを一意に識別する識別子。エンティティ(E)タグ(Tag)？ |
 | `Cache-Control` | キャッシュに関する指示を表す。 |
 | `Set-Cookie` | Cookieの設定。 |
 | `X-Runtime` | サーバでの処理時間。レスポンスタイムともいう。この項目をヒントにサイドチャネル攻撃ができてしまうという話があるので、心配ならこの項目はつけない方が良いかもしれない。[x-runtime は消すべきなのか - Qiita](https://qiita.com/yuku_t/items/09f017c47b780e49422b) |
