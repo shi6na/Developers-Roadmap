@@ -76,7 +76,7 @@
 マークを削除したいときには、ショートカットメニューから「マークを解除」(`shift + command + u`)を選択。  
 
 ブックマークは、マークに名前を設定出来るようにしたもので、動作としても重みのある「マーク」。  
-ブックマークを挿入するには、ターミナルのメニューから「ブックマークを挿入」(`shift + command + u`)を選択。  
+ブックマークを挿入するには、ターミナルのメニューから「ブックマークを挿入」(`shift + command + m`)を選択。  
 
 マークやブックマークの位置に移動するには、ターミナルメニューの「編集」👉「移動」から選択する他、  
 以下のショートカットキーが使用できる。  
@@ -145,6 +145,10 @@
 | /System/Library | macOS独自の拡張機能などのライブラリファイル。Finderでは「システム」👉「ライブラリ」 |
 | /Library | アプリケーション独自の拡張機能などのライブラリファイル。Finderでは「ライブラリ」 |
 | /Applications | アプリケーションのファイル。Finderでは「アプリケーション」|
+
+### 参考
+
+- [Mac ターミナルの基本的な使い方・操作方法（１） / Web Design Leaves](https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_01.html)
 
 <!-- 余力があればリダイレクトのことについて -->
 
@@ -469,13 +473,104 @@ Google    1081 miyasato-pc   40u  IPv4 0x8e0459f36da232d      0t0  TCP 10.10.111
 実際はFTP,SFTP,LDAP,TELNETなど多くのプロトコルに対応している。
 - 明示的にリクエストメソッドを指定したい場合は`-X {リクエストメソッド} “URL”`で変更することができる。
 
-#### 実行してみた - example.comを取得してファイルに出力する
+#### 実行してみた - 取得してファイルに出力する
 
 `curl -o example.html www.example.com`
+`curl http://www.example.com/ > example.html`
 
-- [実行結果 - example.html](example.html)
+- 実行結果：[example.html](example.html)
+
+#### 実行してみた - リクエストヘッダのみ取得する「`-I`」
+
+```zsh
+% curl -I www.example.com
+HTTP/1.1 200 OK
+Content-Encoding: gzip
+Accept-Ranges: bytes
+Age: 493973
+Cache-Control: max-age=604800
+Content-Type: text/html; charset=UTF-8
+Date: Mon, 03 Aug 2020 01:33:24 GMT
+Etag: "3147526947"
+Expires: Mon, 10 Aug 2020 01:33:24 GMT
+Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
+Server: ECS (sjc/16C5)
+X-Cache: HIT
+Content-Length: 648
+```
+
+- 小文字で`-i`だとレスポンスにリクエスドヘッダを含んで出力する形になる。
+
+#### 参考
+
+- [よく使うcurlコマンドのオプション - Qiita](https://qiita.com/ryuichi1208/items/e4e1b27ff7d54a66dcd9)
+- [curlコマンドでapiを叩く - Qiita](https://qiita.com/buntafujikawa/items/758425773b2239feb9a7)
 
 ### wget
+
+`wget [オプション] [URL]`
+
+- ノンインタラクティブなダウンローダー。指定したURLのファイルをダウンロードする。
+- 対応するプロトコルはHTTP、HTTPS、FTPのみ。
+- curlにはない特徴としては、「再帰的にダウンロードできる」こと。
+
+#### 実行してみた - webページをダウンロード
+
+```zsh
+% wget -l 1 -H -r http://www.example.com
+--2020-08-03 11:49:14--  http://www.example.com/
+www.example.com (www.example.com) をDNSに問いあわせています... 93.184.216.34
+www.example.com (www.example.com)|93.184.216.34|:80 に接続しています... 接続しました。
+HTTP による接続要求を送信しました、応答を待っています... 200 OK
+長さ: 1256 (1.2K) [text/html]
+`www.example.com/index.html' に保存中
+
+www.example.com/index.html                             100%[===========================================================================================================================>]   1.23K  --.-KB/s 時間 0s       
+
+2020-08-03 11:49:15 (133 MB/s) - `www.example.com/index.html' へ保存完了 [1256/1256]
+
+robots.txtを読み込んでいます、エラーは無視してください。
+--2020-08-03 11:49:15--  https://www.iana.org/robots.txt
+www.iana.org (www.iana.org) をDNSに問いあわせています... 192.0.32.8
+www.iana.org (www.iana.org)|192.0.32.8|:443 に接続しています... 接続しました。
+HTTP による接続要求を送信しました、応答を待っています... 200 OK
+長さ: 24 [text/plain]
+`www.iana.org/robots.txt' に保存中
+
+www.iana.org/robots.txt                                100%[===========================================================================================================================>]      24  --.-KB/s 時間 0s       
+
+2020-08-03 11:49:16 (2.08 MB/s) - `www.iana.org/robots.txt' へ保存完了 [24/24]
+
+--2020-08-03 11:49:16--  https://www.iana.org/domains/example
+www.iana.org:443 への接続を再利用します。
+HTTP による接続要求を送信しました、応答を待っています... 301 Moved Permanently
+場所: https://www.iana.org/domains/reserved [続く]
+--2020-08-03 11:49:16--  https://www.iana.org/domains/reserved
+www.iana.org:443 への接続を再利用します。
+HTTP による接続要求を送信しました、応答を待っています... 200 OK
+長さ: 10336 (10K) [text/html]
+`www.iana.org/domains/example' に保存中
+
+www.iana.org/domains/example                           100%[===========================================================================================================================>]  10.09K  --.-KB/s 時間 0s       
+
+2020-08-03 11:49:16 (59.0 MB/s) - `www.iana.org/domains/example' へ保存完了 [10336/10336]
+
+終了しました --2020-08-03 11:49:16--
+経過時間: 1.6s
+ダウンロード完了: 3 ファイル、11K バイトを 0s で取得 (59.2 MB/s)
+```
+
+- 実行結果：[www.example.com/index.html](www.example.com/index.html)
+- `-l 1`は階層までのリンク、`-H`は外部のサーバ（ドメイン）も含めてファイルをダウンロード、`-r`は再帰（リンク先も辿る）。
+- `-o`をつけると指定したファイルに出力する。
+- `robots.txt`は、botなどのクローラーに対しての制御情報が書いてあるもの。クロールする場所を制限したり、促したりしてクロール効率を向上させる。
+
+####　参考
+
+- [【 wget 】コマンド――URLを指定してファイルをダウンロードする：Linux基本コマンドTips（24） - ＠IT](https://www.atmarkit.co.jp/ait/articles/1606/20/news024.html)
+- [wgetでこういう時はこうする!! - Qiita](https://qiita.com/hirohiro77/items/b774908436ec032df719)
+
+- 余談:デフォルトでwgetコマンドが入っていなくてbrewでgetしてきました。
 
 ### tail
 
