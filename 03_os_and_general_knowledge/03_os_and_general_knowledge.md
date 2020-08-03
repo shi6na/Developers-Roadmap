@@ -1,5 +1,11 @@
 # OS and General Knowledge
 
+- [Terminal Usage](#terminal-usage)
+- [How OSs work in General](#how-oss-work-in-general)
+- [Process Management](#process-management)
+- [Threads and Concurrency](#threads-and-concurrency)
+- [Basic Terminal Commands](#basic-terminal-commands)
+
 ## Terminal Usage
 
 - `command + n`で新規ウィンドウ
@@ -573,6 +579,8 @@ www.iana.org/domains/example                           100%[====================
 - 余談:デフォルトでwgetコマンドが入っていなくてbrewでgetしてきました。
 
 ### tail
+
+
 
 ### head
 
