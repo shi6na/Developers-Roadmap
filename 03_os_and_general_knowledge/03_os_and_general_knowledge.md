@@ -571,7 +571,7 @@ www.iana.org/domains/example                           100%[====================
 - `-o`をつけると指定したファイルに出力する。
 - `robots.txt`は、botなどのクローラーに対しての制御情報が書いてあるもの。クロールする場所を制限したり、促したりしてクロール効率を向上させる。
 
-####　参考
+#### 参考
 
 - [【 wget 】コマンド――URLを指定してファイルをダウンロードする：Linux基本コマンドTips（24） - ＠IT](https://www.atmarkit.co.jp/ait/articles/1606/20/news024.html)
 - [wgetでこういう時はこうする!! - Qiita](https://qiita.com/hirohiro77/items/b774908436ec032df719)
@@ -580,11 +580,73 @@ www.iana.org/domains/example                           100%[====================
 
 ### tail
 
+`tail [オプション] ファイル名`
 
+- ファイルの最後から数行、「tail(尾)」部分を表示するコマンド。
+- `tail -n <行数> <ファイル名>` で、最後から何行表示するかを指定できる。
+- `-f`オプションを使うと、変更をリアルタイムで監視(follow)することができる。ログファイルを追うのに便利。
+
+#### 実行してみた - example.htmlの最後から数行を見る
+
+```zsh
+% tail example.html
+
+<body>
+<div>
+    <h1>Example Domain</h1>
+    <p>This domain is for use in illustrative examples in documents. You may use this
+    domain in literature without prior coordination or asking for permission.</p>
+    <p><a href="https://www.iana.org/domains/example">More information...</a></p>
+</div>
+</body>
+</html>
+```
+
+- 上記より、行数指定をしない場合は最後から10行分表示するもよう。
 
 ### head
 
+`head [オプション] ファイル名`
+
+- ファイルの最初から数行、「head(頭)」部分を表示するコマンド。
+- `head -n <行数> <ファイル名>` で、最初から何行表示するかを指定できる。
+- これも`-f`で変更をリアルタイム監視することができる。
+
+#### 実行してみた - example.htmlの頭から5行を見る
+
+```zsh
+% head -n 5 example.html
+<!doctype html>
+<html>
+<head>
+    <title>Example Domain</title>
+
+```
+
+- こちらもデフォルトだと10行分表示する様子。
+
 ### less
+
+`less ファイル名`
+
+- テキストファイルの中身を1画面で表示するコマンド。
+- `コマンド名 | less`のように、別のコマンドの実行結果を1画面ずつ表示する場合にも使われる。
+- 同じようなコマンドで`more`というものがあるが、それよりも機能が多く、画面内で検索したりスクロールしたりすることが可能。
+- tailなどと同様、`F`入力で変更をリアルタイム監視出来る。
+- 表示中に`/〇〇`で〇〇の前方検索、`?〇〇`で後方検索が出来る。`&〇〇`で検索にヒットしたものだけを表示。
+- `n`を押し続けると↓側に検索が進み、`N`を押すと↑側に検索が進む。
+
+#### 実行してみた - ページ送り、前方検索、一致したものだけ表示
+
+![lessの実行結果](0803_less.gif)
+
+#### 実行してみた - 別のコマンド(今回は`lsof`)の実行結果を1画面ずつ表示
+
+![別のコマンドの実行結果を1画面ずつ表示](less_lsof.gif)
+
+#### 参考
+
+- [エンジニアなら知っておきたい lessコマンドtips 11選 - Qiita](https://qiita.com/ine1127/items/64b5b6cf52471c3fe59c)
 
 ### find
 
