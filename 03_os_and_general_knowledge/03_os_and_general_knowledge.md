@@ -650,8 +650,35 @@ www.iana.org/domains/example                           100%[====================
 
 ### find
 
+`find [オプション] URL`
+
 - 場所を指定してファイルを検索するコマンド。
 - ファイル名だけではなく、ファイルの種類や更新日時など、細かい条件を指定して検索することができる。
+
+#### 実行してみた - 
+
+```zsh
+% find 03_os_and_general_knowledge
+03_os_and_general_knowledge
+03_os_and_general_knowledge/0803_less.gif
+03_os_and_general_knowledge/www.example.com
+03_os_and_general_knowledge/www.example.com/index.html
+03_os_and_general_knowledge/.DS_Store
+03_os_and_general_knowledge/www.iana.org
+03_os_and_general_knowledge/www.iana.org/domains
+03_os_and_general_knowledge/www.iana.org/domains/example
+03_os_and_general_knowledge/www.iana.org/go
+03_os_and_general_knowledge/www.iana.org/_img
+03_os_and_general_knowledge/www.iana.org/_img/2013.1
+03_os_and_general_knowledge/www.iana.org/_js
+03_os_and_general_knowledge/www.iana.org/_js/2013.1
+03_os_and_general_knowledge/www.iana.org/robots.txt
+03_os_and_general_knowledge/www.iana.org/_css
+03_os_and_general_knowledge/www.iana.org/_css/2015.1
+03_os_and_general_knowledge/less_lsof.gif
+03_os_and_general_knowledge/example.html
+03_os_and_general_knowledge/03_os_and_general_knowledge.md
+```
 
 ### ssh
 
