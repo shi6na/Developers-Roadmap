@@ -650,12 +650,12 @@ www.iana.org/domains/example                           100%[====================
 
 ### find
 
-`find [オプション] URL`
+`find 検索パス 検索条件 [アクション]`
 
 - 場所を指定してファイルを検索するコマンド。
 - ファイル名だけではなく、ファイルの種類や更新日時など、細かい条件を指定して検索することができる。
 
-#### 実行してみた - 
+#### 実行してみた - ディレクトリの中身を検索
 
 ```zsh
 % find 03_os_and_general_knowledge
@@ -679,6 +679,20 @@ www.iana.org/domains/example                           100%[====================
 03_os_and_general_knowledge/example.html
 03_os_and_general_knowledge/03_os_and_general_knowledge.md
 ```
+
+#### 実行してみた - 現在のディレクトリ(developers-loadmap)以下の*.mdファイルを検索
+
+```zsh
+% find ./ -name "*.md" -type f
+.//03_os_and_general_knowledge/03_os_and_general_knowledge.md
+.//README.md
+.//02_basic_frontend_knowledge/02_basic-frontend-knowledge.md
+.//01_internet.md
+```
+
+- `-name`でファイル名指定のオプション。後続のファイル名には
+- `-type`はファイル形式を指定するオプション。fはファイル、dはディレクトリを表す。
+- 他にもユーザ名で検索できたり、診断用の情報（デバッグ情報）を出力できたりする。
 
 ### ssh
 
