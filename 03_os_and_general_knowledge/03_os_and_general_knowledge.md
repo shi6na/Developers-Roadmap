@@ -727,7 +727,7 @@ www.iana.org/domains/example                           100%[====================
 | 3 | QUIT | 端末からの終了命令（ = Ctrl＋\） |
 | 6 | ABRT(abort) | プロセスの異常終了 |
 | 9 | KILL | プロセスの強制終了 |
-| 14 | ALRM | alarm clock(？) |
+| 14 | ALRM | タイマーで終了？ |
 | 15 | TERM | 正常な終了動作を行わせて安全に終了 |
 
 #### Snap Cameraのプロセスを強制終了した
