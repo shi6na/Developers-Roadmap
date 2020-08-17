@@ -183,6 +183,10 @@
 
 ### デーモン
 
+>「デーモン」はギリシャ神話の登場人物で、 善でも悪でもなく、大雑把にいうと、 「人間のために役立つことをしてくれる小さな妖精さん」のこと。
+
+らしい。
+
 - OSが起動すると同時に動く**常駐プログラム**
 - 例えばWebサーバー(httpd)として機能していたり、FTPサーバー(ftpd)として起動していたりする
 - 上記のように、デーモンのプログラム名には`d`が付いていることが多い。
@@ -240,6 +244,7 @@
 ## Basic Terminal Commands
 
 - `$`はbash、`%`はzsh。
+- Linux(GNU)とMacOS(FreeBSD)では開発元が違うため、コマンドの挙動が違うことがあるので要注意。
 
 ### grep
 
@@ -653,6 +658,7 @@ www.iana.org/domains/example                           100%[====================
 `find 検索パス 検索条件 [アクション]`
 
 - 場所を指定してファイルを検索するコマンド。
+- ファイル名が分かっているが、そのファイルがどのディレクトリに配置されているか分からない場合などに役立つ。
 - ファイル名だけではなく、ファイルの種類や更新日時など、細かい条件を指定して検索することができる。
 
 #### 実行してみた - ディレクトリの中身を検索
@@ -662,22 +668,7 @@ www.iana.org/domains/example                           100%[====================
 03_os_and_general_knowledge
 03_os_and_general_knowledge/0803_less.gif
 03_os_and_general_knowledge/www.example.com
-03_os_and_general_knowledge/www.example.com/index.html
-03_os_and_general_knowledge/.DS_Store
-03_os_and_general_knowledge/www.iana.org
-03_os_and_general_knowledge/www.iana.org/domains
-03_os_and_general_knowledge/www.iana.org/domains/example
-03_os_and_general_knowledge/www.iana.org/go
-03_os_and_general_knowledge/www.iana.org/_img
-03_os_and_general_knowledge/www.iana.org/_img/2013.1
-03_os_and_general_knowledge/www.iana.org/_js
-03_os_and_general_knowledge/www.iana.org/_js/2013.1
-03_os_and_general_knowledge/www.iana.org/robots.txt
-03_os_and_general_knowledge/www.iana.org/_css
-03_os_and_general_knowledge/www.iana.org/_css/2015.1
-03_os_and_general_knowledge/less_lsof.gif
-03_os_and_general_knowledge/example.html
-03_os_and_general_knowledge/03_os_and_general_knowledge.md
+（略）
 ```
 
 #### 実行してみた - 現在のディレクトリ(developers-loadmap)以下の*.mdファイルを検索
@@ -690,15 +681,81 @@ www.iana.org/domains/example                           100%[====================
 .//01_internet.md
 ```
 
+#### 実行してみた - 「あのファイルどこにあったっけ？」
+
+```zsh
+% find . -type f -name "example.html" -print
+./03_os_and_general_knowledge/example.html
+```
+
 - `-name`でファイル名指定のオプション。後続のファイル名にはワイルドカードも指定可。
-- `-type`はファイル形式を指定するオプション。fはファイル、dはディレクトリを表す。
-- 他にもユーザ名で検索できたり、診断用の情報（デバッグ情報）を出力できたりする。
+- `-type`はファイル形式を指定するオプション。後続の`f`はファイル、`d`はディレクトリを表す。
+- `-print`で対象となっているファイルのパス名を標準出力に出力して改行してくれる。
+- 他にもユーザ名で検索できたり(-user)、診断用の情報（デバッグ情報）を出力できたりする(GNU版のみ)。
 
 ### ssh
 
-- 言わずと知れたssh(secure shell)コマンド。暗号化された通信を使ってリモート接続をする。
+`ssh ユーザー名@ホスト名 -i 秘密鍵ファイルのパス -p ポート番号`
+
+- 言わずと知れたssh(Secure SHell)コマンド。暗号化された通信を使って安全にリモート接続をする。
+- 主にサーバにアクセスするときに使われる。AWSにログインするときに使ったような気がする。
+- オプションを毎回つけるのが面倒な場合は、`~/.ssh/config`に以下のように接続先の情報を書いておくと  
+`ssh ホスト名`だけで接続できる。便利。
+
+  ```text
+  Host [ホスト名を好きな名前で]
+    HostName    [ホスト名: IPアドレスなど]
+    Port              [ポート番号: 22など]
+    IdentityFile   [鍵ファイルのパス: ~/.ssh/鍵ファイル名など]
+    User             [接続する際のユーザー名]
+  ```
 
 ### kill
+
+`kill [シグナル] プロセスID`
+
+- IDを指定してプロセスやジョブを殺す（終了させる）コマンド
+- 大体「`ps`でPIDを調べる→`kill`」の流れ。
+- シグナルで`-HUP`(1)をつけると終了後再起動、`-KILL`(9)をつけると強制終了させる。
+
+#### シグナルと呼ばれるオプション的な物がある
+
+| 番号 | シグナル | 説明 |
+| --- | --- | --- |
+| 1 | HUP(hung up) | 終了後再起動 |
+| 2 | INT(interrupt) | ユーザーからの強制終了命令（ = Ctrl＋C） |
+| 3 | QUIT | 端末からの終了命令（ = Ctrl＋\） |
+| 6 | ABRT(abort) | プロセスの異常終了 |
+| 9 | KILL | プロセスの強制終了 |
+| 14 | ALRM | alarm clock(？) |
+| 15 | TERM | 正常な終了動作を行わせて安全に終了 |
+
+#### Snap Cameraのプロセスを強制終了した
+
+```zsh
+% ps aux | grep Snap
+miyasato-pc       2770   9.3  2.7  7961144 920924   ??  S     8:55AM  91:44.86 /Applications/Snap Camera.app/Contents/MacOS/Snap Camera
+miyasato-pc       2782   0.0  0.0  4345664   2900   ??  S     8:55AM   0:04.05 /Library/CoreMediaIO/Plug-Ins/DAL/SnapCamera.plugin/Contents/Resources/AssistantService
+miyasato-pc       6451   0.0  0.0  4399356    796 s001  S+   12:14PM   0:00.00 grep Snap
+% kill 2770
+% ps aux | grep Snap
+miyasato-pc       2782   0.0  0.0  4346188   2908   ??  S     8:55AM   0:04.05 /Library/CoreMediaIO/Plug-Ins/DAL/SnapCamera.plugin/Contents/Resources/AssistantService
+miyasato-pc       6466   0.0  0.0  4408572    800 s001  R+   12:15PM   0:00.00 grep Snap
+```
+
+## 補足 - chmodと権限
+
+`chmod モード 対象`
+
+| モード（数字） | モード（アルファベット） | 権限 |
+| --- | --- | --- |
+| 4 | r | 読み取り |
+| 2 | w | 書き込み |
+| 1 | x | 実行 |
+
+上記の合計値を「所有者」「所有グループ」「その他」の順で入力することでパーミッションを変更することができる。
+
+[Linuxの権限確認と変更(chmod)（超初心者向け） - Qiita](https://qiita.com/shisama/items/5f4c4fa768642aad9e06#)
 
 ## Memory Management
 
