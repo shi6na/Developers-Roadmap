@@ -851,12 +851,23 @@ miyasato-pc       6466   0.0  0.0  4408572    800 s001  R+   12:15PM   0:00.00 g
 
 ## POSIX Basics
 
+- 「**P**ortable **O**perating **S**ystem **I**nterface for UNI**X**」の略。
+- IEEEが定めた、「UNIX系OSが備えるべき」とされる標準仕様のこと。
+- UNIXライクなUNIXに似たOSがこの世にはたくさん存在するが、その内部構造は全く別物ということがよくある。同じUNIX系OSなのに、このアプリケーションはこちらでは作動しない…といった互換性が失われてしまうような事態が起きるかもしれない。
+- そこで、UNIXライクなOS間での互換性を保持するために定義されたのがこのPOSIX。
+
 ### stdin
+
+- 「standard input」の略。
 
 ### stdout
 
 ### stdrr
 
 ### pipes
+
+### 参考
+
+- [POSIX | Linux技術者認定 リナック | LPI-Japan](https://linuc.org/study/knowledge/402/)
 
 ## Basic Networking Concepts
