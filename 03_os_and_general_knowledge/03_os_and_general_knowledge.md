@@ -6,6 +6,7 @@
 - [Threads and Concurrency](#threads-and-concurrency)
 - [Basic Terminal Commands](#basic-terminal-commands)
 - [Memory Management](#memory-management)
+- [I/O Management](#io-management)
 
 ## Terminal Usage
 
