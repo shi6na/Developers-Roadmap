@@ -159,15 +159,138 @@ x, y = y, x+y
 
 ### Let's FizzBuzz
 
-```Go
-コードが入るよ
+> コード
 
+```Go
+package main
+
+import "fmt"
+
+func main() {
+  for i := 1; i <= 30; i++ {
+    if i%15 == 0 {
+     fmt.Println("FizzBuzz")
+    } else if i%3 == 0 {
+     fmt.Println("fizz")
+    } else if i%5 == 0 {
+     fmt.Println("buzz")
+    } else {
+     fmt.Println(i)
+    }
+  }
+}
 ```
 
+> 実行結果
+
 ```zsh
-実行結果が入るよ
+1
+2
+fizz
+4
+buzz
+fizz
+7
+8
+fizz
+buzz
+11
+fizz
+13
+14
+FizzBuzz
+16
+17
+fizz
+19
+buzz
+fizz
+22
+23
+fizz
+buzz
+26
+fizz
+28
+29
+FizzBuzz
 ```
 
 - 感想
   - `go run`でコンパイルと実行を一括でやってくれるのすごくありがたい。
   - `go fmt`でソフトタブ全部ハードタブに置換してくれて感動した。
+  - while文が無い！シンプルで良いですね。
+  - macのfinderでgoファイルのサムネイルがあのキャラクターのシルエットになってて可愛い。![goファイルのサムネ](go.png)
+
+## 書いてみよう - Ruby
+
+### コーディング規約
+
+- Rubyの正式なコーディング規約はない。（！）
+- ただし、チーム開発や継続的なメンテナンスが必要とされるシステム開発などにおいては、コーディングスタイルを統一した方が可読性が上がって保守性が向上するため、チーム内で一つ規約を定めておくと良い。
+- 代表的な規約だと以下辺り。
+  - 1行80桁まで。
+  - インデント幅は半角スペース2つ、タブはNG。
+- [クックパッドで使われているコーディング規約](https://github.com/cookpad/styleguide/blob/master/ruby.ja.md)とか、有名なところで使われている規約などはgithubに落ちてたりするので、そちらを参考にするのも良い。
+
+### Let's FizzBuzz
+
+> コード（実行結果は省略）
+
+```Ruby
+(1..30).each do |i|
+  if i % 15 == 0
+    p 'FizzBuzz'
+  elsif i % 3 == 0
+    p 'Fizz'
+  elsif i % 5 == 0
+    p 'Buzz'
+  else p i end
+end
+```
+
+- 感想
+  - importとかmain()とか書かなくて良いのが大変に楽
+  - 1行目から書けるしGoの半分以下の行数で終わって楽しい✌
+
+## 書いてみよう - JavaScript
+
+### コーディング規約
+
+- インデントは2または4つのスペース、またはタブ記号を使用、お好みで。最近はスペースが一般的。
+- 1行は80または120文字まで。
+- ブロックの波括弧は同じ行に書く"エジプト"スタイル。カッコの前にはスペースを。
+- 複数の文がある場合には、カッコ内の各文ごとに行を分けるのが好ましい。
+
+※ すべての規約は絶対ではなく、コーディングの好みであるため、変更可！
+
+### Let's FizzBuzz
+
+> コード
+
+```JavaScript
+for (let i=1; i<=30; i++) {
+  if(i % 15 == 0) {
+    console.log("FizzBuzz");
+  } else if (i % 3 == 0) {
+    console.log("Fizz");
+  } else if (i % 5 == 0) {
+    console.log("Buzz");
+  } else {
+    console.log(i);
+  }
+}
+```
+
+> 実行結果
+
+![JSでFizzBuzz](fizzbuzzjs.png)
+
+- 感想
+  - 元々そういうものとはいえ、htmlも用意しないと出力が見れないのが面倒。
+  - node.jsを使えばターミナルで出力できるらしい。
+  - とはいえこれも1行目から書けるところがすき💮
+
+## CLIを作ってみよう
+
+- 今回はGoで作ります。今まで本格的に使ったことがない言語なので。
