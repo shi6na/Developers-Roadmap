@@ -6,7 +6,7 @@ import "fmt"
 // – 5で割り切れるときは「Buzz」を発言
 // – 両方で割り切れるときは「FizzBuzz」を発言
 
-func main() {
+func sub() {
 	for i := 1; i <= 30; i++ {
 		if i%15 == 0 {
 			fmt.Println("FizzBuzz")
