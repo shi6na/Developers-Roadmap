@@ -284,7 +284,7 @@ for (let i=1; i<=30; i++) {
 
 > 実行結果
 
-![JSでFizzBuzz](fizzbuzzjs.png)
+![JSでFizzBuzz](fizzbuzzJS.png)
 
 - 感想
   - 元々そういうものとはいえ、htmlも用意しないと出力が見れないのが面倒。
