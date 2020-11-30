@@ -220,7 +220,7 @@ FizzBuzz
   - `go run`でコンパイルと実行を一括でやってくれるのすごくありがたい。
   - `go fmt`でソフトタブ全部ハードタブに置換してくれて感動した。
   - while文が無い！シンプルで良いですね。
-  - macのfinderでgoファイルのサムネイルがあのキャラクターのシルエットになってて可愛い。
+  - macのFinderで、goファイルのサムネイルがあいつのシルエットになってて可愛い。
 
   ![goファイルのサムネ](go.png)
 
@@ -292,11 +292,112 @@ for (let i=1; i<=30; i++) {
   - 元々そういうものとはいえ、htmlも用意しないと出力が見れないのが面倒。
   - node.jsを使えばターミナルで出力できるらしい。
   - とはいえこれも1行目から書けるところがすき💮
+## パッケージマネージャ
+<!-- とは? -->
+- 各種のソフトウェアの導入と削除、そしてソフトウェア同士やライブラリとの依存関係を管理するシステム。
+- **パッケージ**：≒ソフトウェア、ライブラリ。ファイル群を一つにし、インストールや削除をまとめてできるようにしたもの。
+
+### 経緯
+
+![パッケージマネージャがうまれる経緯](パッケージマネージャ-1.png)
+
+### 主な機能
+
+大体のパッケージマネージャに備わっているのは以下の4つの機能。ただし、この機能がついていないものもある。
+
+- リポジトリの購読：インターネット上のパッケージリポジトリを指定して、必要に応じてローカルのパッケージリストを更新する。また、パッケージ名や説明を検索して必要なパッケージを探す。
+- パッケージのインストール・削除：パッケージに必要なソフトウェアのダウンロードや[完全性](https://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E5%AE%8C%E5%85%A8%E6%80%A7#:~:text=%E3%83%87%E3%83%BC%E3%82%BF%E5%AE%8C%E5%85%A8%E6%80%A7%EF%BC%88%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8B%E3%82%93%E3%81%9C%E3%82%93,%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%B3%E3%83%86%E3%82%B0%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E3%82%82%E3%80%82)の検証、インストールをする。設定ファイルなどを完全に削除することも可。
+- 依存関係の解決：あるパッケージに必要なソフトウェアを自動的にインストール・更新する。
+- 設定管理：パッケージの設定スクリプトを使って、自動的に設定を行える。競合する機能をもつソフトウェアで、どちらを優先して使うかを設定する。
+
+### 何があるんだパッケージマネージャ
+
+| システム | パッケージマネージャ |
+| --- | --- |
+| OS系 | |
+| RedHat系Linux（e.g.CentOS） | rpm，yum，dnf |
+| Debian系Linux（e.g.Ubunts） | apt-get，dpkg |
+| Mac OS | homebrew |
+| Windows | Nuget，chocolatey |
+| 言語系 | |
+| JavaScript | npm(node.js)，yarn |
+| Python | pip |
+| Ruby | RubyGems |
+| Go | Glide |
+| PHP | Comporser，PEAR，PECL |
+
+フレームワークや言語に付いてくるタイプのパッケージマネージャ(e.g.npm、RubyGems)は、それをインストールした時点で一緒にインストールされていることが多い。
+
+### Homebrewの使い方
+
+今回は、**HomeBrew**の使い方について。
+1. [Homebrew](https://brew.sh/index_ja.html)からインストール用のスクリプトをコピー、ターミナルで実行する。
+1. インストールが完了したら、`brew　doctor`でHomebrewに問題が無いかをチェックする。`Your system is ready to brew.`が出たらOK!
+1. あとはターミナルから`brew install [パッケージ名(Formula名)]`で好きなものをインストールできる。かんたん！
+
+### Formula
+
+手順書。英単語としては製法という意味で、brewが醸造=ビルドする、製法=ビルド手順書の意。
+
+簡単なRubyで書かれており、homebrewはこれに沿ってパッケージをインストールしていく。
+
+例えば以下。
+
+```ruby
+class Wget < Formula
+  homepage "https://www.gnu.org/software/wget/"
+  url "https://ftp.gnu.org/gnu/wget/wget-1.15.tar.gz"
+  sha256 "52126be8cf1bddd7536886e74c053ad7d0ed2aa89b4b630f76785bac21695fcd"
+
+  def install
+    system "./configure", "--prefix=#{prefix}"
+    system "make", "install"
+  end
+end
+```
+
+
+簡単に意味を説明すると以下の通り。
+| 項目名 | 説明 |
+| --- | --- |
+| homepage | このパッケージのホームページ。必須値。でも`https`なら正直なんでも良いらしい。 |
+| url | brewはこれを`curl`で叩いてパッケージ本体(アーカイブ)を取得する。`curl`で叩けてアーカイブが取得できるものならどのURLでも大丈夫。|
+| sha256 | パッケージ本体のハッシュ値を入れる箇所。上記で`curl`を叩いてネットから取得したアーカイブが、意図してないもの（改ざん、誤指定）であることを防ぐためのもの。 |
+| install | インストール時の挙動（主にビルドやファイルの移動）を定義する場所。この場合だと設定ファイルにプレフィックスをセットして、`make install`を叩いてインストールする。 |
 
 ## CLIを作ってみよう
 
-- 今まで本格的に使ったことがない言語なので、Goで作ってみようと思います。
+- 今まで本格的に使ったことがない言語なので、Goで作りました。
+
+👉 https://ghe.fenrir-inc.com/miyazato/shitake-go
+
+※Formula内のcurlでのアーカイブダウンロードだけOneloginのサインインページをパスできなかったので、そこだけ手動展開です。
 
 ### 仕様
 
-### 使い方
+- しいたけ占いの内容をスクレイピングで取得し、コマンドラインで表示するツール。
+- 公式が毎週月曜昼12時更新なので、毎週月曜昼12時更新です。
+- コーディングの最中、思い立った時に。
+- 一週間、行動指針の道標がほしい時に。
+
+### 詰んだところ
+
+- formulaのsha256：`openssl sha256 < /Users/miyazato-pc/Downloads/shitake-go-0.1.2.tar.gz`などで調べよう。本体に更新が入るとsha256が変わるので、バージョンアップしたら都度変えよう。
+- XCodeのCommand Line Tool：事前にインストールしておこう。
+
+## Formulaメモ
+
+- `bin.install`で`usr/local/Celler`のパスを`usr/local/bin`に展開してくれる
+- そのため、コマンド名(shitake-go)でコマンドを叩くことができるようになる
+- urlに指定してあるアドレスをcurlで叩いている👉curlで叩けるURLならGithub.comじゃなくても良い
+- `brew tap shi6na/shitake-go` は `brew tap shi6na/shitake-go https://github.com/shi6na/shitake-go`の略
+
+
+### 参考
+
+- [パッケージ管理システム - Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E7%AE%A1%E7%90%86%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0)
+- [JavaScriptのパッケージマネージャーnpmとYarnについて解説します！ | 侍エンジニア塾ブログ（Samurai Blog） - プログラミング入門者向けサイト](https://www.sejuku.net/blog/96866)
+- [パッケージ管理ツールをまとめてみる - Qiita](https://qiita.com/shuari/items/75d8d938a80a27b4ba0a)
+- [パッケージ管理システム(パッケージマネージャ)の種類 (Windows, Linux, Mac) | urashita.com 浦下.com (ウラシタドットコム)](https://urashita.com/archives/7781)
+- bowerについては公式が使用を非推奨としており、npmやyarnの使用を推奨していることから省略しました。
+- [macOS（またはLinux）用パッケージマネージャー — Homebrew](https://brew.sh/index_ja.html)
