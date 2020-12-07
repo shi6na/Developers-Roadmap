@@ -332,6 +332,7 @@ for (let i=1; i<=30; i++) {
 ### Homebrewの使い方
 
 今回は、**HomeBrew**の使い方について。
+
 1. [Homebrew](https://brew.sh/index_ja.html)からインストール用のスクリプトをコピー、ターミナルで実行する。
 1. インストールが完了したら、`brew　doctor`でHomebrewに問題が無いかをチェックする。`Your system is ready to brew.`が出たらOK!
 1. あとはターミナルから`brew install [パッケージ名(Formula名)]`で好きなものをインストールできる。かんたん！
@@ -368,9 +369,9 @@ end
 
 ## CLIを作ってみよう
 
-- 今まで本格的に使ったことがない言語なので、Goで作って、Homebrewで公開しました。
+- 今まで本格的に使ったことがない言語なので、Goで作りました。配布はHomebrewです。
 
-👉 https://ghe.fenrir-inc.com/miyazato/shitake-go
+くわしくはこちら👉 <https://ghe.fenrir-inc.com/miyazato/shitake-go>
 
 ※アーカイブダウンロードだけOneloginのサインインページをパスできなかったので、そこだけ手動展開です。
 
@@ -381,9 +382,17 @@ end
 - コーディングの最中、思い立った時に。
 - 一週間、行動指針の道標がほしい時に。
 
+### 使ったパッケージとか
+
+| 名称 | 説明 |
+| --- | --- |
+| urfave/cli | goをコマンドラインツール化するライブラリ |
+| PuerkitoBio/goquery | テキストのHTMLをパースしてqueryライクに操作できるライブラリ |
+
 ### 詰んだところ
 
-- formulaのsha256：`openssl sha256 < /Users/miyazato-pc/Downloads/shitake-go-0.1.2.tar.gz`などで調べよう。本体に更新が入るとsha256が変わるので、バージョンアップしたら都度変えよう。
+- GHEのOneLogin
+- formulaのsha256：`openssl sha256 < /Users/miyazato-pc/Downloads/shitake-go-0.1.2.tar.gz`などで調べよう。ソースコードに更新が入るとsha256が変わるので、バージョンアップしたら都度変えよう。
 - XCodeのCommand Line Tool：事前にインストールしておこう。AppleIDが無いとなにかと不便なので、早めに取得しておこう。
 
 ## Formulaメモ
@@ -392,7 +401,6 @@ end
 - そのため、コマンド名(shitake-go)でコマンドを叩くことができるようになる
 - urlに指定してあるアドレスをcurlで叩いている👉curlで叩けるURLならGithub.comじゃなくても良い
 - `brew tap shi6na/shitake-go` は `brew tap shi6na/shitake-go https://github.com/shi6na/shitake-go`の略
-
 
 ### 参考
 
