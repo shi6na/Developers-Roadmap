@@ -387,7 +387,7 @@ end
 | 名称 | 説明 |
 | --- | --- |
 | urfave/cli | goをコマンドラインツール化するライブラリ |
-| PuerkitoBio/goquery | テキストのHTMLをパースしてqueryライクに操作できるライブラリ |
+| PuerkitoBio/goquery | テキストのHTMLをパースしてqueryライクに操作できるライブラリ |
 
 ### 詰んだところ
 
