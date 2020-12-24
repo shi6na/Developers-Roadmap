@@ -151,9 +151,23 @@ Gitは、分散型に分類されるバージョン管理システムである�
 | --- | --- |
 | `git push origin [ブランチ名]:[リモートブランチ名]` | [リモートブランチ名]に、[ブランチ名]の内容を反映させる。[リモートブランチ名]がリモートリポジトリに存在しない場合は新規作成される。ちなみに、`git push origin master`と`git push origin master:master`は同義。|
 | `git reflog origin/[ブランチ名]` | pushのログを見ることが出来る。|
-| `git push origin :[リモートブランチ名]` | リモートのブランチを削除することが出来る。（nullなブランチで指定したリモートブランチを上書きして消しているイメージ）|
+| `git push origin :[リモートブランチ名]` | リモートのブランチを削除することが出来る（空のブランチで指定したリモートブランチを上書きして消しているイメージ）。|
+| `git push origin --delete [リモートブランチ名]` | 上記と同義。 |
+|`git push -f(または--force) origin master`| プッシュを強制する。ローカルとリモートでの履歴のコンフリクトが発生する場合でも、強制的にリモートを上書き出来る。複数人で開発している場合は、使用に注意が必要。 |
 | `git push -f origin HEAD^:master` | リモートリポジトリのコミットバージョンを戻す。この場合は一つ戻す。|
 | `git push -f origin [ハッシュ値]:master` | 特定のコミットに戻す。コミットのハッシュ値は`git log`で見ることが出来る。|
+| `git push --force-with-lease origin master` | ローカルの履歴がリモートよりも新しいときだけ強制プッシュする。|
+| `git push -u(--set-upstream) origin master` | 上流ブランチを設定し、その後はブランチ名を省略出来るようになる。この場合だと、ローカルのmasterブランチの上流ブランチとしてリモートのmasterブランチが設定される。|
+| `git push --all origin` | 全てのブランチをpushする。ブランチ名を指定することは出来ない。configのpush.defaultの設定値があれば、それに応じて振る舞いが変わる。 |
+| `git push --prune origin` | ローカルに存在するが、リモートに存在しないブランチを消去する。|
+| `git push --tags origin` | 全てのタグをpushする。 |
+
+#### タグって何？
+
+- コミットにわかりやすい名前をつけるための目印。
+- これによって履歴内の特定のコミットが参照しやすくなる。
+- `git tag <tag-name>`もしくは`git tag -a <tag-name> -m "message"`で先頭のコミットにタグを付けられる。
+- `git tag`でタグ一覧表示、`git tag -l "v1.0"`で特定のタグのみ表示。
 
 ### fetch
 
@@ -169,9 +183,11 @@ Gitは、分散型に分類されるバージョン管理システムである�
 
 | 使用例 | 説明 |
 | --- | --- |
-| `git fetch origin` | `origin`のリモートの全てのブランチの情報を取得する。なお、
-何も指定されていない場合はorigin |
-| `git fetch --all` | originに限らず、全てのリモートの全てのブランチの情報を取得する |
+| `git fetch origin` | `origin`のリモートの全てのブランチの情報を取得する。なお、何も指定されていない場合はorigin |
+| `git fetch --all` | originに限らず、全てのリモートの全てのブランチの情報を取得する。 |
+| `git fetch --prune` | ローカルに存在するが、リモートに存在しないブランチを消去する。 |
+<!-- TODO:git fetch --prune→リモートにはないけどローカルにはあるブランチをすべて削除する？
+git push --prune origin → ローカルになくて、リモートにあるブランチを全て削除する？ -->
 
 ### merge
 
