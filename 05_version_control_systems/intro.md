@@ -159,7 +159,7 @@ Gitは、分散型に分類されるバージョン管理システムである�
 | `git push --force-with-lease origin master` | ローカルの履歴がリモートよりも新しいときだけ強制プッシュする。|
 | `git push -u(--set-upstream) origin master` | 上流ブランチを設定し、その後はブランチ名を省略出来るようになる。この場合だと、ローカルのmasterブランチの上流ブランチとしてリモートのmasterブランチが設定される。|
 | `git push --all origin` | 全てのブランチをpushする。ブランチ名を指定することは出来ない。configのpush.defaultの設定値があれば、それに応じて振る舞いが変わる。 |
-| `git push --prune origin` | ローカルに存在するが、リモートに存在しないブランチを消去する。|
+| `git push --prune origin` | リモートで削除されているローカルのリモートブランチを削除してくれる。|
 | `git push --tags origin` | 全てのタグをpushする。 |
 
 #### タグって何？
@@ -186,8 +186,6 @@ Gitは、分散型に分類されるバージョン管理システムである�
 | `git fetch origin` | `origin`のリモートの全てのブランチの情報を取得する。なお、何も指定されていない場合はorigin |
 | `git fetch --all` | originに限らず、全てのリモートの全てのブランチの情報を取得する。 |
 | `git fetch --prune` | ローカルに存在するが、リモートに存在しないブランチを消去する。 |
-<!-- TODO:git fetch --prune→リモートにはないけどローカルにはあるブランチをすべて削除する？
-git push --prune origin → ローカルになくて、リモートにあるブランチを全て削除する？ -->
 
 ### merge
 
