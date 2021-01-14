@@ -139,6 +139,16 @@ Gitは、分散型に分類されるバージョン管理システムである�
 | `--amend` | 直前のコミットメッセージを編集できる。間違えても大丈夫！ |
 | `-v` | 変更点を表示してコミット |
 
+### 余談：commitの粒度とメッセージ
+
+コミットはできるだけ細かい方が良い。2つの修正を1つのコミットであげてしまう、みたいなのはあまりやらない方が良い。
+
+- 機能単位（１タスク、１チケット）で１コミットする。
+- 何かあった時に、ここまで戻りたいな〜と思ったところでコミットするといい。または、正常に動く単位でコミット。
+- amendやrebaseであとからまとめてしまう分にはいくらでもできるので、こまめにcommitした方がハッピーになれる。
+- コミットメッセージは3行が推奨されている。私は1行で書いている人々しか見たことがない。`add:◯◯クラスを実装`みたいに、`接頭辞（編集内容カテゴリ）：内容` みたいな書き方をよく見る。し、わかりやすい。
+- コミットメッセージについて、詳しくはこちら： - [Gitのコミットメッセージの書き方 - Qiita](https://qiita.com/itosho/items/9565c6ad2ffc24c09364)
+
 ### push
 
 `git push [リモート名] [ブランチ名]`
@@ -313,7 +323,7 @@ D---E---F---G master
 
 - Gitを利用したサービス。
 - GUIによるコードの閲覧・管理はもちろん、ソースコードをダウンロードできたり、直接コメントをつけることも可能。コードメインのSNS。
-- `PullRequest(PR)`という、「コードのレビューをお願いします」「あわよくばマージしてください」の申請機能があるのが特徴。
+- `PullRequest(PR)`という、「コードのレビューをお願いします」「あわよくばマージしてください」申請機能があるのが特徴。
 - マスコットキャラクターはOctocat、タコネコという種族の「Monalisa（モナリサ）」ちゃん。
 
 ![リポジトリの位置関係](original.png)
@@ -325,7 +335,7 @@ D---E---F---G master
 - 複数人で開発作業をしている時、リモートリポジトリに作業内容をpushして、本筋であるmasterブランチに反映（merge）してほしい時にやるもの。
 - それと同時にコードのレビュー（批評）が行われる。コメントつけてここ直して！って言われたり。
 - 管理者が「オッケー！」と思ったらpull requestのmergeが行われ、指定したブランチにPRの内容が反映される。
-- 状態には「open」「close」「Draft」の三種類あり、最初は「open」もしくは「Draft」。mergeされたり、管理者が「いやこれはよくないな」と思ったりしたらcloseされる。
+- 状態には「open」「close」「draft」の三種類あり、最初は「open」もしくは「draft」。mergeされたり、管理者が「いやこれはよくないな」と思ったりしたらcloseされる。
 
 ![PR作成画面](PullRequest.png)
 
@@ -333,7 +343,7 @@ D---E---F---G master
 
 リポジトリ共有式PullRequest。同じリポジトリをcloneで共有して作業し、PRを行う方式。
 
-- 「同じリポジトリを共有する」そのリポジトリのmasterブランチに、好き勝手にpushする権利を付与するということ。
+- 「同じリポジトリを共有する」とは、そのリポジトリのmasterブランチに、自由にpushする権利を付与するということ。
 - Fork式より簡単にリポジトリを操作できる分、誤操作や独断に気をつけないといけない。
 
 1. GitHubからリモートリポジトリをローカルにcloneする
@@ -341,13 +351,12 @@ D---E---F---G master
 1. コミット完了後、リモートリポジトリにpushする。
 1. githubに行く。pushしたブランチがある。
 1. pull requestボタンを押して、いろいろ入力して、提出。
-1. ここまででPRは完了。
 
 このあと、merge権限を持っている人がコードをレビューして、修正入ったらやり直し、もし良ければmasterにmergeしてくれる。
 
 ## ForkするタイプのPullRequest
 
-Fork = コピーリポジトリ
+Fork = リポジトリ
 
 - 大前提として、「自分に共有されていないリポジトリは更新することができない」。
 - コピーリポジトリを作って、そのリポジトリで作業すれば、自分の好き勝手にいじくることができる。失敗しても大丈夫！
@@ -367,18 +376,12 @@ Fork = コピーリポジトリ
 
 ## 練習
 
-- Forkしてみたい人はこちら→[リポジトリをフォークする - GitHub ヘルプ](https://help.github.com/ja/github/getting-started-with-github/fork-a-repo)
-- リポジトリ共有式をおさらいしたい方はこちら→[GitHub初心者はForkしない方のPull Requestから入門しよう | qnyp blog](https://blog.qnyp.com/2013/05/28/pull-request-for-github-beginners/)
+- [リポジトリをフォークする - GitHub ヘルプ](https://help.github.com/ja/github/getting-started-with-github/fork-a-repo)- Forkしてみたい人はこちら
+- [GitHub初心者はForkしない方のPull Requestから入門しよう | qnyp blog](https://blog.qnyp.com/2013/05/28/pull-request-for-github-beginners/) - リポジトリ共有式をおさらいしたい方はこちら
 
-### commitの粒度とメッセージ
+## Organization
 
-コミットはできるだけ細かい方が良い。2つの修正を1つのコミットであげてしまう、みたいなのはあまりやらない方が良い。
-
-- 機能単位（１タスク、１チケット）で１コミットする。
-- 何かあった時に、ここまで戻りたいな〜と思ったところでコミットするといい。または、正常に動く単位でコミット。
-- amendやrebaseであとからまとめてしまう分にはいくらでもできるので、こまめにcommitした方がハッピーになれる。
-- コミットメッセージは3行が推奨されている。私は1行で書いている人々しか見たことがない。`add:◯◯クラスを実装`みたいに、`接頭辞（編集内容カテゴリ）：内容` みたいな書き方をよく見る。し、わかりやすい。
-  - コミットメッセージについて、詳しくはこちら： - [Gitのコミットメッセージの書き方 - Qiita](https://qiita.com/itosho/items/9565c6ad2ffc24c09364)
+https://docs.github.com/ja/free-pro-team@latest/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratchs
 
 ## READMEとwiki
 
@@ -388,7 +391,8 @@ Fork = コピーリポジトリ
 ## Issue（イシュー）
 
 - チケットとも言う（由来はRedmine）。項目を作ることを「チケットを切る」とか言う。
-- 作業に関する問題を話し合うために使用される掲示板のような機能のことで、issueを終了させることをcloseという。つまるところタスク管理表。
+- 作業に関する問題を話し合うために使用される掲示板のような機能のことで、つまるところタスク管理表。
+- issueを終了させることをcloseという。
 
 | 名称 | 説明 |
 | --- | --- |
@@ -398,12 +402,12 @@ Fork = コピーリポジトリ
 | projects | カンバン機能（projects）と連動させる機能。ここに対応するカンバンを指定すると、projectの方にも対応するissue項目が追加されているという寸法。 |
 
 - issueには番号が割り振られ、コミットメッセージやissueコメント欄などに`#1`のように#つきでissue番号をつけると、自動でissueへのリンクを貼ることができるという便利な仕様。
-  - 同じことをPRでもできて、そのPRがマージされたら、対応するissueの方も自動でcloseしてくれる。
-  - コミットメッセージに"create:README.md close #1"のように`close <issue番号>`と書いておくと、該当するissueを自動でcloseしてくれる。便利！魔法の呪文みたい👏
+- 同じことをPRでもできて、そのPRがマージされたら、対応するissueの方も自動でcloseしてくれる。
+- コミットメッセージに`create:README.md close #1`のように`close <issue番号>`と書いておくと、該当するissueを自動でcloseしてくれる。便利！魔法の呪文👏
 
 ## Project（カンバン機能）
 
-（[Trello](https://trello.com/)だ・・・）タスク進捗管理をGUIでできるツール。俗に言う「カンバン」。ちなみにフェンリル島根支社ではホワイトボードに付箋とマグネットとテープ仕切りというアナログ手法でやっている。とっても良いと思う。
+[Trello](https://trello.com/)のような、タスク進捗管理をGUIでできるツール。俗に言う「カンバン」。フェンリル島根支社ではホワイトボードに付箋とマグネットとテープ仕切りというアナログ手法でやっていた。とっても良いと思う。
 
 - GitHubのリポジトリページの中、「Projects」というタブのこと。
 - そこから新しいprojectを作成し、カンバンを作る。Templateタブからお好みのデフォルトカラムセットが選べるぞ！
@@ -411,26 +415,36 @@ Fork = コピーリポジトリ
   - Todo(やらないといけないこと)
   - In progress(作業中)
   - Done(完了)
-- そこに項目を増やしていき、作業中や完了など、進捗ごとにカラムを動かして使う。夏休みの宿題の進捗管理これだったら絶対上手くやってたと思う。
-- 使ってみた方が早い→[Githubでカンバン機能を利用する方法｜Koushi Kagawa 😊｜note](https://note.mu/koushikagawa/n/n5e4280fd0ee1)
+- そこに項目を増やしていき、作業中や完了など、進捗ごとにタスクを移動させて使う。夏休みの宿題の進捗管理これだったらな。
+- [Githubでカンバン機能を利用する方法｜Koushi Kagawa 😊｜note](https://note.mu/koushikagawa/n/n5e4280fd0ee1) - 使ってみた方が早い。
 
+## Pages
+
+https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html
+
+## gist
+
+> gist は、データのスニペットや抜粋を他の人と共有するための簡単な方法です。Gist にはコードの文字列や bash スクリプト、その他の小さなデータの断片などがあります。これらの情報はGitHubでリポジトリとしてホストされています。... ギストはGitHub上で自由に作成・保存できるだけでなく、簡単に作成することができます。
+
+https://docs.github.com/ja/free-pro-team@latest/github/writing-on-github/creating-gists
 ## ブランチモデル
 
 ブランチの切り方にもモデルがあるらしい。有名なのは「Git Flow」「GitHub Flow」
 
 ### Git Flow
 
-masterブランチの他に、developブランチ、featureブランチ、releaseブランチ、hotfixブランチがあって、それらを使い分けるブランチの切り方。運用方法ややこしい。
+`master`ブランチの他に、`develop`ブランチ、`feature`ブランチ、`release`ブランチ、`hotfix`ブランチがあって、それらを使い分けるブランチの切り方。
 
-- masterブランチ：言わずと知れたmaster。ここで作業は行わず、完成してもうすぐデプロイできるぞ、的な内容がここに集結する。
-- developブランチ：実際に作業するメインのブランチ・・・とはいえ、ここに直接pushしていくわけではなく、さらにまたもう一段階ブランチを作って、そこからのPRを受けていきます。開発段階の内容が入るブランチ。
-- featureブランチ：特徴ブランチ。実際にいじるのはここ。ここに作業内容をpushしていって、developブランチにPR出して、レビューしてもらったりする。
-- releaseブランチ：リリースが近づいたらdevelopブランチから分岐して使うブランチ。READMEやパッチなど、リリースに向けての内容が追加・修正される。リリースが終わったら、このブランチからmasterブランチへマージして、「リリースしたよ！」のバージョンタグをつける。なんとmasterが出てくるのはほぼこれだけ。
-- hotfixブランチ：リリース後に出てきた緊急度の高いバグ修正を行うブランチ。マージの仕方はreleaseブランチと同じ。このとき、一緒にdevelopブランチもマージしてしまいます。
+| ブランチ名 | 説明 |
+| --- | --- |
+| master | master。ここで作業は行わず、完成してもうすぐデプロイできるぞ、的な内容がここに集結する。| develop | 実際に作業するメインのブランチ・・・とはいえ、ここに直接pushしていくわけではなく、さらにまたもう一段階ブランチを作って、そこからのPRを受けていきます。開発段階の内容が入るブランチ。|
+| feature | 特徴ブランチ。実際に触るのはここ。ここに作業内容をpushしていって、developブランチにPR出して、レビューしてもらったりする。|
+| release | リリースが近づいたらdevelopブランチから分岐して使うブランチ。READMEやパッチなど、リリースに向けての内容が追加・修正される。リリースが終わったら、このブランチからmasterブランチへマージして、「リリースしたよ！」のバージョンタグをつける。|
+| hotfix | リリース後に出てきた緊急度の高いバグ修正を行うブランチ。マージの仕方はreleaseブランチと同じ。マージする時、一緒にdevelopブランチもマージしてしまいます。|
 
 ### GitHub Flow
 
-Git Flowに比べ大変シンプル。なんと、masterブランチとトピックブランチしかない。私が実際に見たことあるのは多分こっち。
+Git Flowに比べ大変シンプル。なんと、masterブランチとtopic（広義）ブランチしかない。私が実際に見たことあるのは多分こっち。
 
 - masterブランチ：いつもの。このブランチにマージされたものは全てリリースされる。「masterブランチのものは、何であれ、デプロイ可能である」。
 - トピックブランチ：実際に作業するブランチ。説明的な名前（例：`miyazato-new-oauth2-scopes`など）を付けたブランチを作成して、レビューしてもらいたいタイミングやマージしてほしいタイミングでPRを送る。
@@ -448,48 +462,59 @@ Git Flowに比べ大変シンプル。なんと、masterブランチとトピッ
 ### 参考：[GitHub Flow (Japanese translation)](https://gist.github.com/Gab-km/3705015)
 
 ## GitHubコミュニケーション
+
 GitHub（に限らず、SNSでのコミュニケーション）において、文字だけでは誤解を招く可能性がある。そのため、GitHubでも絵文字や略語がよく使われるらしい。
+
 ### emoticon（エモティコン）
-絵文字のこと。emotionとiconを合体させた造語のような気がする（私見）。「エモ◯◯」っていうところが日本語の絵文字（えもじ）と一緒なのは偶然なのか何なのか。
+
+絵文字のこと。emotionとiconを合体させた造語のような気がする（私見）。「emo○i...」っていうところが日本語の絵文字（えもじ）と一緒なのは偶然なのか何なのか。
 名称を`:`で囲むことで絵文字表示が可能。
-- `:smile:` ... :smile: 笑顔
-- `:innocent:` ... :innocent: 天使
-- `:+1:` ... :+1: いいね！
-- `:clap:` ... :clap: 拍手
 
-- 他にもいろいろ。[EMOJI CHEAT SHEET](http://www.emoji-cheat-sheet.com/)をご参照くださいませ。
-- コミットメッセージにつけるのもいいかも・・・一例。[Gitで絵文字コミットをするために行った3つの準備ステップ - Qiita](https://qiita.com/nishina555/items/4b4bb79dc93398d4d0a1)
+| 名称 | 書き方と意味 |
+| --- | --- |
+| `:smile:` | :smile: 笑顔 |
+| `:innocent:` | :innocent: 天使 |
+| `:+1:` | :+1: いいね！ |
+| `:clap:` | :clap: 拍手 |
 
-### 略語
+- [EMOJI CHEAT SHEET](http://www.emoji-cheat-sheet.com/) - 他にもいろいろあるのでご参照くださいませ。
+- [Gitで絵文字コミットをするために行った3つの準備ステップ - Qiita](https://qiita.com/nishina555/items/4b4bb79dc93398d4d0a1) - コミットメッセージにつけるのもいいかも。
+
+## 略語
 
 WIPとかよく使う。
 
-- LGTM：「Looks Good To Me」の略。良いんじゃない？👌的ニュアンス。レビューの終了や承認を表す場合も。
-- IMO：「In My Option」。「私が思うに」。
-- AFAIK：「As Far As I Know」。「私の知る限りでは」。
-- IMHO：IMOに「Humble(控えめ、謙虚な)」を加えた略語。「つまらない意見ですが」的なニュアンス。
-  - 同じIMHOで「In My Honest Opinion」「率直に言うと」という意味もあるらしいので文脈に注意。いやそんなわかりづらい使い方しないでほしい。
-- NP：「No Problem」。「気にしないで、どうたしまして」の意。
-- Nitpick/NITS：粗探しをする、という意味の動詞。小さなことを指摘する、という意味。粗探ししてごめんね的な姿勢が伺える気がする。
-- WIP： 「Work In Progress」。「作業中なのであんまり小さいとこツッコまないでね、そういうのはちょっと待ってね」の意。
-- MUST：「もう明らかに間違えているので絶対に直そう」の意。しなければならない。絶対。
-- SHOULD：「やばい間違いではないけど、直しといた方が良い」の意。すべき。推奨。
-- ETA：「Estimated time of arrival」。作業の完了予定時刻のこと。
-- PTAL：「Please Take Another Look」。「再度ご確認ください」の意。
-- e.g.：For example（例えば、）の略らしい・・・ex.じゃダメなんだろうか・・・と思ったら、ラテン語の「exempli gratia」の方に寄せているっぽい、なるほど。
-- cf.：「参照」の意。ラテン語で「参照せよ」「比較せよ」を意味する命令形「confer」の略形。
+| 略語 | 意味 |
+| --- | --- |
+| LGTM | 「Looks Good To Me」の略。「良いんじゃない？👌」的ニュアンス。レビューの終了や承認を表す場合も。 |
+| IMO | 「In My Option」。「私が思うに」。 |
+| AFAIK | 「As Far As I Know」。「私の知る限りでは」。 |
+| IMHO | IMOに「Humble(控えめ、謙虚な)」を加えた略語。「つまらない意見ですが」的なニュアンス。|
+| IMHO（余談） | 同じIMHOで「In My Honest Opinion」「率直に言うと」という意味もあるらしいので文脈に注意。いやそんなわかりづらい使い方しないでほしい。 |
+| NP | 「No Problem」。「気にしないで、どうたしまして」の意。 |
+| Nitpick/NITS | 粗探しをする、という意味の動詞。小さなことを指摘する、という意味。粗探ししてごめんね的な姿勢が伺える気がする。|
+| WIP | 「Work In Progress」。「作業中なのであんまり小さいとこツッコまないでね、そういうのはちょっと待ってね」の意。|
+| MUST | 「もう明らかに間違えているので絶対に直そう」の意。しなければならない。絶対。 |
+| SHOULD | 「やばい間違いではないけど、直しといた方が良い」の意。すべき。推奨。|
+| ETA | 「Estimated time of arrival」。作業の完了予定時刻のこと。|
+| PTAL |「Please Take Another Look」。「再度ご確認ください」の意。 |
+| e.g. | For example（例えば、）の略らしい ex.じゃダメなんだろうかと思ったら、ラテン語の「exempli gratia」の方に寄せているっぽい、なるほど。 |
+| cf. | 「参照」の意。ラテン語で「参照せよ」「比較せよ」を意味する命令形「confer」の略形。|
 
-- その他詳しくはこちら・・・[英語のコメントや issue で頻出する略語の意味 (FYI, AFAIK, ...) - Qiita](https://qiita.com/uasi/items/86c3a09d17792ab62dfe)
+その他詳しくはこちら
+
+- [英語のコメントや issue で頻出する略語の意味 (FYI, AFAIK, ...) - Qiita](https://qiita.com/uasi/items/86c3a09d17792ab62dfe)
 
 ## OctocatのMonalisaちゃん
-GitHubといえば！？あの黒い猫耳のマスコットキャラクター。Ryan Tomaykoさんの娘さんが作ったお話が可愛くて有名でわたしはとてもすき。要約するとタコ足に見えるサンゴ足のタコネコ。
+
+GitHubといえば！？あの黒い猫耳のマスコットキャラクター。Ryan Tomaykoさんの娘さんが作ったお話が可愛い。要約するとタコ足に見えるサンゴ足のタコネコの、モナリサちゃん。
 > 原文：Once upon a time, there was a cat who's name was Monalisa. Monalisa and her owner went to the beach. When Monalisa got to the beach, her owner Kelly gave her goggles so Monalisa could swim and see what was in the ocean. When Monalisa went in the water she found lots of fish. When Monalisa was swimming she was so exited she opened her mouth and swouloed a coral that made you grow legs like a octapus but keep your normal face. So Monalisa grew legs and became Mrs. Monalisa octocat.
 
 > 訳：むかしむかし、モナリサという猫がいました。モナリサと飼い主は、ある日ビーチに行きました。ビーチに到着すると、飼い主のKellyが海の中を泳いで見られるようにと、モナリサにゴーグルを渡しました。モナリサが水の中に潜ると、たくさんの魚が見えました。モナリサはとても興奮し口を開けると、サンゴが口の中に入ってしまいました。すると、サンゴが口の中に入った瞬間、まるでタコのように足が伸びました。しかし、顔はそのままでした。だからモナリサは、足が伸びた「Mrs. Monalisa octocat」（モナリサ・タコネコ）になったのです。
 （原文提供：Scott Chaconさん）
 
+## 参考
 
-# 参考
 - [GitHub のフォーク （fork） とプルリクエスト （pull request） の使い方 - akihiro kamijo](http://cuaoar.jp/2013/03/github-fork-pull-request.html)
 - [GitHub初心者はForkしない方のPull Requestから入門しよう | qnyp blog](https://blog.qnyp.com/2013/05/28/pull-request-for-github-beginners/)
 - [リポジトリのcloneとforkの違い - Qiita](https://qiita.com/matsubox/items/09904e4c51e6bc267990)
