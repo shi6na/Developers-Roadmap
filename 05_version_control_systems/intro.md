@@ -384,17 +384,50 @@ Fork = リポジトリ
 - Githubアカウントの種類の一つ。
 - 企業やオープンソースプロジェクトが多くのプロジェクトにわたって一度にコラボレーションできる共有アカウント。
 - オーナーや管理者は、Organizationの持つデータとプロジェクトへのアクセス権限を管理することができる。
-- 個人アカウントから作ることが出来る。個人アカウントとの相違点は以下。
+- 個人アカウントから作ることが出来る。そのアカウントはOrganizationのオーナーアカウントとなる。
 
-| 特徴 | 個人 | Organization |
-| --- | --- |　--- |
-| リポジトリを持つ | ◯ | ◯ |
-| プロジェクトを持つ | ◯ | ◯ |
-| メンバーを追加する | ✕ | ◯ |
-| Teamという概念が存在する | ✕ | ◯ |
-| 監査ログが存在する | ✕ | ◯ |
+個人アカウントとの相違点は以下。
 
-https://docs.github.com/ja/free-pro-team@latest/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch
+<table>
+  <tr>
+    <td>特徴</td>
+    <td>個人</td>
+    <td>Organization</td>
+  </tr>
+  <tr>
+    <td>リポジトリを持つ</td>
+    <td>◯</td>
+    <td>◯</td>
+  </tr>
+  <tr>
+    <td>プロジェクトを持つ</td>
+    <td>◯</td>
+    <td>◯</td>
+  </tr>
+  <tr>
+    <td>メンバーを追加する</td>
+    <td>✕</td>
+    <td>◯</td>
+  </tr>
+  <tr>
+    <td>Teamという概念が存在する</td>
+    <td>✕</td>
+    <td>◯</td>
+  </tr>
+  <tr>
+    <td>監査ログが存在する</td>
+    <td>✕</td>
+    <td>◯</td>
+  </tr>
+</table>
+
+- メンバー：Orginazationに所属するユーザー。Orginazaionのリポジトリに対して何かしらの権限がオーナーから付与される。
+- Team：企業や団体内の小さいグループ。これに対してまとめて権限を付けたりできる。
+- 監査ログ：Organization配下で発生した出来事やそれを行った人、行った場所を確認できる。オーナーのみ。
+
+### 参考
+- [新しい Organization をゼロから作成 - GitHub Docs](https://docs.github.com/ja/free-pro-team@latest/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch)
+- [githubのorganizationアカウントの運営について - Qiita](https://qiita.com/chari/items/ee16bf16715f4bbcbd9b)
 
 ## READMEとwiki
 
@@ -420,7 +453,7 @@ https://docs.github.com/ja/free-pro-team@latest/github/setting-up-and-managing-o
 
 ## Project（カンバン機能）
 
-[Trello](https://trello.com/)のような、タスク進捗管理をGUIでできるツール。俗に言う「カンバン」。フェンリル島根支社ではホワイトボードに付箋とマグネットとテープ仕切りというアナログ手法でやっていた。とっても良いと思う。
+[Trello](https://trello.com/)のような、タスク進捗管理をGUIで行うツール。俗に言う「カンバン」。フェンリル島根支社ではホワイトボードに付箋とマグネットとテープ仕切りというアナログ手法でやっていた。とっても良いと思う。
 
 - GitHubのリポジトリページの中、「Projects」というタブのこと。
 - そこから新しいprojectを作成し、カンバンを作る。Templateタブからお好みのデフォルトカラムセットが選べるぞ！
@@ -433,11 +466,24 @@ https://docs.github.com/ja/free-pro-team@latest/github/setting-up-and-managing-o
 
 ## Pages
 
-https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html
+- Githubによる、静的サイトのホスティングサービス。
+- Githubのアカウントさえあればすぐに静的サイトが公開できるので、非常にお手軽。
+- HTML、CSSや画像などはもちろん、JavaScriptも動作する。
+
+1. 静的サイトのソースのリポジトリの`settings`から、`github Pages` → `Source`を選ぶ
+1. `master branch`を選択し、その後`Save`ボタンを押す。
+これだけで、masterブランチの内容がそのままGithub Pagesとして公開されるように。べ、便利〜！？
+
+1. `https://ユーザまたは組織名.github.io/リポジトリ名` で公開したページにアクセスできる。便利〜〜〜〜！！！！！！！
+
+イラストやCSSデザイナのポートフォリオサイトとかこれで全然いけるのでは…と思いました
+### 参考
+
+ - [GitHub Pages を使った静的サイトの公開方法が、とても簡単になっていた ｜ Tips Note by TAM](https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html)
 
 ## gist
 
-> gist は、データのスニペットや抜粋を他の人と共有するための簡単な方法です。Gist にはコードの文字列や bash スクリプト、その他の小さなデータの断片などがあります。これらの情報はGitHubでリポジトリとしてホストされています。... ギストはGitHub上で自由に作成・保存できるだけでなく、簡単に作成することができます。
+> gist は、データのスニペットや抜粋を他の人と共有するための簡単な方法です。Gist にはコードの文字列や bash スクリプト、その他の小さなデータの断片などがあります。これらの情報はGitHubでリポジトリとしてホストされています。gistはGitHub上で自由に作成・保存できるだけでなく、簡単に作成することができます。
 
 https://docs.github.com/ja/free-pro-team@latest/github/writing-on-github/creating-gists
 ## ブランチモデル
