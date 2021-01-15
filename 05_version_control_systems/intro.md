@@ -381,7 +381,20 @@ Fork = リポジトリ
 
 ## Organization
 
-https://docs.github.com/ja/free-pro-team@latest/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratchs
+- Githubアカウントの種類の一つ。
+- 企業やオープンソースプロジェクトが多くのプロジェクトにわたって一度にコラボレーションできる共有アカウント。
+- オーナーや管理者は、Organizationの持つデータとプロジェクトへのアクセス権限を管理することができる。
+- 個人アカウントから作ることが出来る。個人アカウントとの相違点は以下。
+
+| 特徴 | 個人 | Organization |
+| --- | --- |　--- |
+| リポジトリを持つ | ◯ | ◯ |
+| プロジェクトを持つ | ◯ | ◯ |
+| メンバーを追加する | ✕ | ◯ |
+| Teamという概念が存在する | ✕ | ◯ |
+| 監査ログが存在する | ✕ | ◯ |
+
+https://docs.github.com/ja/free-pro-team@latest/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch
 
 ## READMEとwiki
 
