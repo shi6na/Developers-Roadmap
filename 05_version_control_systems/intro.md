@@ -453,15 +453,16 @@ Fork = リポジトリ
 
 ## Project（カンバン機能）
 
-[Trello](https://trello.com/)のような、タスク進捗管理をGUIで行うツール。俗に言う「カンバン」。フェンリル島根支社ではホワイトボードに付箋とマグネットとテープ仕切りというアナログ手法でやっていた。とっても良いと思う。
+- [Trello](https://trello.com/)のような、タスク進捗管理をGUIで行うツール。いわゆる「カンバン」。
+- フェンリル島根支社ではホワイトボードに付箋とマグネットとテープ仕切りというアナログ手法でやっていた。とっても良いと思う。
 
-- GitHubのリポジトリページの中、「Projects」というタブのこと。
-- そこから新しいprojectを作成し、カンバンを作る。Templateタブからお好みのデフォルトカラムセットが選べるぞ！
-- 以下、一例。Template：「Basic」のデフォルトカラム。
+- GitHubのリポジトリページの中、「Projects」というタブから新しいprojectを作成し、カンバンを作る。
+- Templateタブからお好みのデフォルトカラムセットが選べるぞ！
+- 例・Template：「Basic」のデフォルトカラム
   - Todo(やらないといけないこと)
   - In progress(作業中)
   - Done(完了)
-- そこに項目を増やしていき、作業中や完了など、進捗ごとにタスクを移動させて使う。夏休みの宿題の進捗管理これだったらな。
+- ここに項目を増やしていき、作業中や完了など、進捗ごとにタスクを移動させて使う。夏休みの宿題の進捗管理これだったらな。
 - [Githubでカンバン機能を利用する方法｜Koushi Kagawa 😊｜note](https://note.mu/koushikagawa/n/n5e4280fd0ee1) - 使ってみた方が早い。
 
 ## Pages
@@ -479,13 +480,22 @@ Fork = リポジトリ
 イラストやCSSデザイナのポートフォリオサイトとかこれで全然いけるのでは…と思いました
 ### 参考
 
- - [GitHub Pages を使った静的サイトの公開方法が、とても簡単になっていた ｜ Tips Note by TAM](https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html)
+- [GitHub Pages を使った静的サイトの公開方法が、とても簡単になっていた ｜ Tips Note by TAM](https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html)
 
 ## gist
 
 > gist は、データのスニペットや抜粋を他の人と共有するための簡単な方法です。Gist にはコードの文字列や bash スクリプト、その他の小さなデータの断片などがあります。これらの情報はGitHubでリポジトリとしてホストされています。gistはGitHub上で自由に作成・保存できるだけでなく、簡単に作成することができます。
 
-https://docs.github.com/ja/free-pro-team@latest/github/writing-on-github/creating-gists
+- Gitのリポジトリの一種。リポジトリなのでフォークしたりクローンしたりできる。状態もパブリックとプライベートの2種。
+- Githubにサインインしていれば、そのアカウントに関連付けられ、[Gist home page](https://gist.github.com/)に移動すると自分のGistリストに表示される。
+- 他の人のパブリックGistを探すこともできる。一度パブリックにしたGistをプライベートにはできない。
+- 大体のファイルを上げられるが、主にコードを載せたり、markdownで資料をまとめたりするのに使われる。
+- 複雑な機能がなく、秒でコードやテキストを共有できるのでそういうときに良い。
+
+### 参考
+
+- [Gist の作成 - GitHub Docs](https://docs.github.com/ja/free-pro-team@latest/github/writing-on-github/creating-gists)
+
 ## ブランチモデル
 
 ブランチの切り方にもモデルがあるらしい。有名なのは「Git Flow」「GitHub Flow」
