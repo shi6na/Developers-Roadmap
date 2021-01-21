@@ -15,7 +15,7 @@ Backendから調べていきます。
 
 ## [5. Version Control Systems](https://github.com/shi6na/Developers-Roadmap/blob/master/05_version_control_systems/intro.md)
 
-## 6. Relational Databases
+## [6. Relational Databases](https://github.com/shi6na/Developers-Roadmap/blob/master/05_relational_databases/intro.md)
 
 ## 7. More about Databases
 
