@@ -13,9 +13,9 @@ Backendから調べていきます。
 
 ## [4. Learn a Language](https://github.com/shi6na/Developers-Roadmap/blob/master/04_learn_a_language/intro.md)
 
-## [5. Version Control Systems](https://github.com/shi6na/Developers-Roadmap/blob/master/05_version_control_systems/intro.md)
+## [5. Version Control Systems](https://github.com/shi6na/Developers-Roadmap/blob/master/05_version_control_systems/git.md)
 
-## [6. Relational Databases](https://github.com/shi6na/Developers-Roadmap/blob/master/06_relational_databases/git.md)
+## [6. Relational Databases](https://github.com/shi6na/Developers-Roadmap/blob/master/06_relational_databases/intro.md)
 
 ## 7. More about Databases
 
