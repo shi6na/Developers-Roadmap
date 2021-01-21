@@ -53,8 +53,78 @@
 
 ## SQLとは
 
+- DBを操作するための言語。Structured Query Language。プログラミング言語ではない。
+- 対話型の操作でコンパイル不要。大量のデータを効率よく操作できる。
+- SQLでできる操作は以下。
+  - データの検索
+  - データの追加
+  - データの更新
+  - データの削除
+  - テーブルの作成
+  - テーブルの削除
+  - テーブルの主キーの設定
+  - ユーザー権限の付与
+- 主に以下の３つの命令文で構成されている。
+
+### DDL（データ定義言語：Data Definition Language）
+
+- データベースの定義や作成に関わる命令文。
+- 「CREATE（DB,テーブル作成）」「DROP（DB,テーブル削除）」「ALTER（DB、テーブル変更）」などがある。
+
+### DML（データ操作言語：Data Manipulation Language）
+
+- データの取得・更新・削除などのデータ操作に関わる命令文。
+- 「SELECT（データ取得）」「UPDATE（データ更新）」「DELETE（データ削除）」「INSERT（データ挿入）」などがある。
+
+### DCL（データ制御言語：Data Control Language）
+
+- トランザクションの制御やデータベースへのアクセス制御をするためのコマンド。
+- 「BEGIN（トランザクション開始）」「COMMIT（実行した処理の確定）」「ROLLBACK（データの戻し）」などがある。
+
 ## テーブル作成に関するルールについて
 
-## データ型
+不正なデータが登録されることや、不正なデータに更新されることを防ぐためのものたち。
 
-## 制約
+### データ型
+
+- テーブルを作成する時、それぞれの列に指定した形式のデータしか入力できないように設定する機能。
+- 主なデータ型は以下。🐬がMySQL独自、🐘がPstgreSQL独自。
+
+| データ型 | 説明 |
+| --- | --- |
+| 整数データ型 | |
+| int（integer） | 整数 -2147483648～2147483647 |
+| 🐬tinyint | とても小さな整数範囲 -128 ～ 127 |
+| 🐘smallint | 小さな整数 -32768から+32767 |
+| 🐘bigint | 大きな整数 -9223372036854775808から+9223372036854775807 |
+| 浮動小数点データ型 | |
+| 🐬float | 小さい (単精度) 浮動小数点数  -3.402823466E+38 から -1.175494351E-38、0、および 1.175494351E-38 から 3.402823466E+38 |
+| 🐬double | 普通サイズ (倍精度) 浮動小数点数 -1.7976931348623157E+308 から -2.2250738585072014E-308、0、および 2.2250738585072014E-308 から 1.7976931348623157E+308 |
+| 🐘real | 6桁精度 |
+| 🐘double precision | 15桁精度 |
+| 連番型 | |
+| 🐘smallserial | |
+| 🐘serial | |
+| 🐘bigserial | |
+| 文字列型 |  |
+| char(n) |  |
+| varchar(n) |  |
+| text |  |
+| 日付・時刻型 |  |
+| date |  |
+| 🐬datetime |  |
+| time |  |
+
+
+
+### 制約
+
+## 参考
+
+- [データモデル - Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%A2%E3%83%87%E3%83%AB)
+- [関係モデル - Wikipedia](https://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E3%83%A2%E3%83%87%E3%83%AB)
+- [関係データベース - Wikipedia](https://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9)
+- [オブジェクト指向データベース | IT用語辞典 | 大塚商会](otsuka-shokai.co.jp/words/object-oriented-dtatabase.html)
+- [データベース管理システム - Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E7%AE%A1%E7%90%86%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0)
+- [入門者でもわかるSQLを使って表を作ってみよう！【SQ…｜Udemy メディア](https://udemy.benesse.co.jp/development/system/intro-sql.html#:~:text=SQL%E3%81%A8%E3%81%AF%E3%80%81%E3%80%8CStructured%20Query,%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E8%A8%80%E8%AA%9E%E3%81%A7%E3%81%99%E3%80%82)
+- [SQLとは？基礎知識と具体例をわかりやすく解説！](https://products.sint.co.jp/topsic/blog/sql)
