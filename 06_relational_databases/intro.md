@@ -147,3 +147,5 @@
 - [制約](https://www.postgresql.jp/document/pg940doc/html/ddl-constraints.html)
 - [CREATE TABLE](https://www.postgresql.jp/document/pg940doc/html/sql-createtable.html#SQL-CREATETABLE-EXCLUDE)
 - [SQLの制約の種類とその指定方法 - Qiita](https://qiita.com/Uejun/items/de02b78adbc54868d40d)
+
+## 次：[CRUDをやってみよう](https://github.com/shi6na/Developers-Roadmap/blob/master/06_relational_databases/hands_on.md)
