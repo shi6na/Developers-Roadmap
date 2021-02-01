@@ -179,24 +179,145 @@ mydb=# SELECT * FROM weather;
 (3 rows)
 ```
 
-- SELECT文を用いて、テーブルへ問い合わせをすると、データが取り出せる。上記例だと、weatherの全ての行を取り出すことになる。
+- SELECT文を用いてテーブルへ問い合わせをすると、データが取り出せる。上記例だと、weatherの全ての行を取り出すことになる。
+- `*`は「全ての列」の省略形で、上記例だと`SELECT city, temp_lo, temp_hi, prcp, date FROM weather;`と同義。
 - この文は以下の３つに分ける事ができる。
   - 選択リスト（返される列のリスト部分）
   - テーブルリスト（データを取り出すテーブルのリスト部分）
   - 省略可能な条件（制限を指定する部分）
 
 ![SELECT文](select.png)
-- `*`は「全ての列」の省略形で、`SELECT city, temp_lo, temp_hi, prcp, date FROM weather;`と同義。
--
+
+- 選択リストには、列参照だけでなく、任意の式を指定することが出来る。例えば以下のように、2列の平均を出したい場合など。
+
+```zsh
+mydb=# SELECT city, (temp_hi+temp_lo)/2 AS temp_avg, date FROM weather;
+
+     city      | temp_avg |    date
+---------------+----------+------------
+ San Francisco |       48 | 1994-11-27
+ San Francisco |       50 | 1994-11-29
+ Hayward       |       45 | 1994-11-29
+(3 rows)
+```
+
+AS句で算出した値にラベルを付けることも可能。
+
+- WHERE句を追加すると、問い合わせに条件付けをすることができる。
+- WHERE句は論理式を持ち、この論理式が真となる行のみを返す。よく使われる論理演算子（AND、OR、NOT）を条件づけに使用出来る。例えば以下だと、San Franciscoの雨天時の気象データを取り出す。
+
+```zsh
+mydb=# SELECT * FROM weather
+mydb-#    WHERE city = 'San Francisco' AND prcp > 0.0;
+
+         city      | temp_lo | temp_hi | prcp |    date
+---------------+---------+---------+------+------------
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27
+(1 row)
+
+```
+
+- ORDER BY句を用い、問い合わせの結果をソートして返すよう指定することも出来る。
+
+```zsh
+mydb=# SELECT * FROM weather
+mydb-#   ORDER BY city, temp_lo;
+
+     city      | temp_lo | temp_hi | prcp |    date
+---------------+---------+---------+------+------------
+ Hayward       |      37 |      54 |      | 1994-11-29
+ San Francisco |      43 |      57 |    0 | 1994-11-29
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27
+(3 rows)
+```
+
+- DISTINCT句で、問い合わせの結果から重複行を除くように指定することができる。
+
+```zsh
+mydb=# SELECT DISTINCT city
+mydb-# FROM weather;
+     city
+---------------
+ Hayward
+ San Francisco
+(2 rows)
+```
 
 ## 2.6(テーブル間を結合)
+
+- 一度に同一のテーブルまたは複数のテーブルの複数の行にアクセスする問い合わせを、「結合問い合わせ」と呼ぶ。
+- 例として、関連する都市の位置情報を気象データと一緒に表示したい場合が挙げられる。それを行うためには、weatherテーブルの各行のcity列と、citiesテーブルの全ての行のname列を比較し、両者の値が一致する行の組み合わせを選択する。
+
+```zsh
+mydb=# SELECT *
+mydb-#    FROM weather, cities
+mydb-#    WHERE city = name;
+
+     city      | temp_lo | temp_hi | prcp |    date    |     name      | location
+---------------+---------+---------+------+------------+---------------+-----------
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27 | San Francisco | (-194,53)
+ San Francisco |      43 |      57 |    0 | 1994-11-29 | San Francisco | (-194,53)
+(2 rows)
+```
+
+- Hayward市についての結果がない。これは、citiesテーブルにはHaywardに一致する項目がなく、結合の際にweatherテーブル内の一致しない行は無視されるため。
+- 都市名に関する列が２つ出来てしまっている(cityとname)。これはweatherテーブルとcitiesテーブルから列のリストが連結されているため。しかし実際には、これは望ましい結果ではないため、*を使わずに、明示的に出力列のリストを指定することになる。
+
+```zsh
+SELECT city, temp_lo, temp_hi, prcp, date, location
+    FROM weather, cities
+    WHERE city = name;
+
+         city      | temp_lo | temp_hi | prcp |    date    | location
+---------------+---------+---------+------+------------+-----------
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27 | (-194,53)
+ San Francisco |      43 |      57 |    0 | 1994-11-29 | (-194,53)
+```
+
+都市名に関する列がcityのみになりました。良い感じ。
+
+- 今回SELECTで指定した列はそれぞれ異なる名前のため、パーサは自動的にどのテーブルの列かを見つけられる。
+- しかし、2つのテーブルで列名が重複していた場合は、どちらの列を表示させたいかを示すために、以下のように列名を修飾しなければならない。
+- 結合問い合わせでは、すべての列名を以下のように修飾する方式が良いと考えられている。後で重複する名前を持つ列を追加された場合、問い合わせが失敗するためである。
+
+```zsh
+SELECT weather.city, weather.temp_lo, weather.temp_hi,
+       weather.prcp, weather.date, cities.location
+    FROM weather, cities
+    WHERE cities.name = weather.city;
+
+```
+
+### 外部結合
+
+- 前項での問い合わせは、以下のような形でも表す事ができる。
+
+```zsh
+mydb=# SELECT *
+mydb-#    FROM weather INNER JOIN cities ON (weather.city = cities.name);
+```
+
+- ここからHaywardのレコードを得るようにするためには、一致しない行があった場合にcitiesテーブルの列の部分を何らかの"空の値"に書き換えなければならない。この種の問い合わせは「外部結合」と呼ばれる。
+- LEFT OUTER JOINを用いると、そのような問い合わせが実現できる。これを「左外部結合」と呼ぶ。
+
+```zsh
+mydb=#　SELECT *
+mydb-#    FROM weather LEFT OUTER JOIN cities ON (weather.city = cities.name);
+
+     city      | temp_lo | temp_hi | prcp |    date    |     name      | location
+---------------+---------+---------+------+------------+---------------+-----------
+ Hayward       |      37 |      54 |      | 1994-11-29 |               |
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27 | San Francisco | (-194,53)
+ San Francisco |      43 |      57 |    0 | 1994-11-29 | San Francisco | (-194,53)
+(3 rows)
+```
+
+- LEFT OUTER JOIN句の右側のテーブルに一致しないような、左側のテーブルの行を出力するとき、右側のテーブルの列は空の値（NULL）で置換される。
+- 左外部結合があるということは、右外部結合も完全外部結合もある。
+
 
 ## 2.6(集約関数)
 
 ## 2.8(更新)
 
 ## 2.9(削除)
-
-※ MySQLの公式ドキュメント：<https://dev.mysql.com/doc/refman/5.6/ja/tutorial.html>
-
-- 3.1 ~ 3.4, 3.6
