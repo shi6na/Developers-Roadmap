@@ -2,6 +2,9 @@
 
 PostgreSQLの公式ドキュメント：<https://www.postgresql.org/docs/12/tutorial.html>
 
+- PostgreSQL：多機能。
+- MySQL：早く作りたい時に
+
 ## 1. Getting Started
 
 ## 1.1(インストール)
@@ -94,7 +97,7 @@ mydb=# SELECT 2+2;
 
 - PostgreSQLは「リレーショナルデータベースマネジメントシステム(RDBMS)」。
 - つまるところ、リレーションの中に格納されたデータを管理するシステム。
-- 「リレーション」は「テーブル」を表す数学用語。（そうなんだ）
+- 「リレーション」は「テーブル」を表す数学用語。（そうなんだ）（どういうこと？）
 - 「テーブル」は、「行の集合」に名前を付けたもの。
 - 「行」は、名前を付けた「列の集合」。
 - 「列」は特定のデータ型を持つ。
@@ -105,9 +108,86 @@ mydb=# SELECT 2+2;
 
 ## 2.3(新しいテーブルの作成)
 
+```zsh
+mydb=# CREATE TABLE weather (
+    city            varchar(80),
+    temp_lo         int,           -- 最低気温
+    temp_hi         int,           -- 最高気温
+    prcp            real,          -- 降水量
+    date            date
+);
+
+CREATE TABLE
+```
+
+- テーブル名と、テーブルの全ての列の名前と型を指定することで、新しいテーブルを作成することができる。
+- psqlは、セミコロンで終わるまでそのコマンドは継続するものと認識する。
+- SQLコマンドでは、空白文字（空白、タブ、改行）を自由に使用することが出来る。
+- 連続した２つのハイフン（`--`）はコメント。その後に入力したものは、行末まで無視される。
+- SQLはキーワードと識別子に対して大文字小文字を区別しない。ただし、識別子が二重引用符でくくられていた場合は区別する。
+- テーブルが不要になった場合や別のものに作り直したい場合、`DROP TABLE tablename;`で削除できる。
+- `\dt`でテーブル一覧。
+
+```zsh
+mydb=# \dt
+           List of relations
+ Schema |  Name   | Type  |    Owner
+--------+---------+-------+-------------
+ public | cities  | table | miyasato-pc
+ public | weather | table | miyasato-pc
+(2 rows)
+```
+
 ## 2.4(テーブルに行を挿入)
 
+```zsh
+mydb=# INSERT INTO weather VALUES('San Francisco',46,50,0.25,'1994-11-27');
+
+INSERT 0 1
+```
+
+- INSERT文を用いてテーブルに行を挿入する。
+- 単純な数値以外の定数は、上記の例のように単一引用符で括らなければならない。
+- 上記の例だと列の順番を覚えておく必要があるが、以下のようにすると、列のリストを明示的に与える事ができる。
+
+```zsh
+INSERT INTO weather (city, temp_lo, temp_hi, prcp, date)
+    VALUES ('San Francisco', 43, 57, 0.0, '1994-11-29');
+```
+
+リスト内の列は順不同。一部の列を省略することも出来る。例えば、降水量`pcrp`がわからない場合は以下のようにする。
+
+```zsh
+INSERT INTO weather (date, city, temp_hi, temp_lo)
+    VALUES ('1994-11-29', 'Hayward', 54, 37);
+```
+
+だいたいみんな列の順番覚えるのダルいので後者でやります。
+
+- 大量のデータを平文テキストファイルからロードすることもできる。INSERT程柔軟性はないが、大量にデータを読み込みたいときにはこちらの方が高速。e.g. `COPY weather FROM '/home/user/weather.txt';`
+
 ## 2.5(テーブルへの問合わせ)
+
+```zsh
+mydb=# SELECT * FROM weather;
+
+     city      | temp_lo | temp_hi | prcp |    date
+---------------+---------+---------+------+------------
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27
+ Hayward       |      37 |      54 |      | 1994-11-29
+ San Francisco |      43 |      57 |    0 | 1994-11-29
+(3 rows)
+```
+
+- SELECT文を用いて、テーブルへ問い合わせをすると、データが取り出せる。上記例だと、weatherの全ての行を取り出すことになる。
+- この文は以下の３つに分ける事ができる。
+  - 選択リスト（返される列のリスト部分）
+  - テーブルリスト（データを取り出すテーブルのリスト部分）
+  - 省略可能な条件（制限を指定する部分）
+
+![SELECT文](select.png)
+- `*`は「全ての列」の省略形で、`SELECT city, temp_lo, temp_hi, prcp, date FROM weather;`と同義。
+-
 
 ## 2.6(テーブル間を結合)
 
