@@ -162,7 +162,7 @@ INSERT INTO weather (date, city, temp_hi, temp_lo)
     VALUES ('1994-11-29', 'Hayward', 54, 37);
 ```
 
-だいたいみんな列の順番覚えるのダルいので後者でやります。
+※だいたいみんな列の順番を覚えるのがダルいので後者でやる。
 
 - 大量のデータを平文テキストファイルからロードすることもできる。INSERT程柔軟性はないが、大量にデータを読み込みたいときにはこちらの方が高速。e.g. `COPY weather FROM '/home/user/weather.txt';`
 
@@ -179,7 +179,7 @@ mydb=# SELECT * FROM weather;
 (3 rows)
 ```
 
-- SELECT文を用いてテーブルへ問い合わせをすると、データが取り出せる。上記例だと、weatherの全ての行を取り出すことになる。
+- SELECT文を用いてテーブルへ問い合わせをすると、データが取り出せる。上記の場合、weatherの全ての行を取り出すことになる。
 - `*`は「全ての列」の省略形で、上記例だと`SELECT city, temp_lo, temp_hi, prcp, date FROM weather;`と同義。
 - この文は以下の３つに分ける事ができる。
   - 選択リスト（返される列のリスト部分）
@@ -322,9 +322,110 @@ mydb-#    FROM weather LEFT OUTER JOIN cities ON (weather.city = cities.name);
 
 ## 2.6(集約関数)
 
-- 集約関数は、複数の入力行から1つの
+集約関数は、複数の入力行から1つの結果を計算する。
 
+- 例えば、行の集合に対して、演算を行う集約が以下である。
+  - count（総数）
+  - sum（総和）
+  - avg（平均）
+  - max（最大）
+  - min（最小）
+
+- 例1：都市ごとの最低気温の最大値を求めたいとき
+
+```zsh
+mydb=# SELECT city, max(temp_lo)
+mydb-#   FROM weather
+mydb-#   GROUP BY city;
+     city      | max
+---------------+-----
+ Hayward       |  37
+ San Francisco |  46
+(2 rows)
+```
+
+- 例2：例1にHAVINGでグループ化した行にフィルタをかける
+
+```zsh
+mydb=# SELECT city, max(temp_lo)
+mydb-#   FROM weather
+mydb-# GROUP BY city
+mydb-# HAVING max(temp_lo) < 40;
+  city   | max
+---------+-----
+ Hayward |  37
+(1 row)
+```
+
+### 注意
+
+- WHERE句は、「どの行を使用して集約演算を行うかを制御する」ものであるため、集約関数を持つことが出来ない。
+- HAVINGは、グループと集約を演算した後に、グループ化された行を選択し、常に集約関数を持つ。
 
 ## 2.8(更新)
 
+UPDATEコマンドを使用して、既存の行を更新することができる。
+
+- 例1：11月28日以降の全ての気温を2度低く修正したいとき
+
+```zsh
+mydb=# SELECT * FROM weather;
+     city      | temp_lo | temp_hi | prcp |    date
+---------------+---------+---------+------+------------
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27
+ Hayward       |      37 |      54 |      | 1994-11-29
+ San Francisco |      43 |      57 |    0 | 1994-11-29
+(3 rows)
+
+-- 修正
+
+mydb=# UPDATE weather
+  SET temp_hi = temp_hi-2, temp_lo = temp_lo-2
+  WHERE date > '1994-11-28';
+UPDATE 2
+
+-- 結果
+
+mydb=# SELECT * FROM weather;
+     city      | temp_lo | temp_hi | prcp |    date
+---------------+---------+---------+------+------------
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27
+ Hayward       |      35 |      52 |      | 1994-11-29
+ San Francisco |      41 |      55 |    0 | 1994-11-29
+(3 rows)
+```
+
 ## 2.9(削除)
+
+DELETEコマンドを使用して、テーブルから行を削除することができる。
+
+- 例１：Haywardの気象を対象としなくなったので、削除したい
+
+```zsh
+mydb=# DELETE FROM weather WHERE city = 'Hayward';
+DELETE 1
+
+-- 結果
+
+mydb=# SELECT * FROM weather;
+     city      | temp_lo | temp_hi | prcp |    date
+---------------+---------+---------+------+------------
+ San Francisco |      46 |      50 | 0.25 | 1994-11-27
+ San Francisco |      41 |      55 |    0 | 1994-11-29
+(2 rows)
+```
+
+Haywardに関する気象データは全て削除された。
+
+### 注意
+
+```zsh
+DELETE FROM tablename;
+```
+
+- 上記のように、条件がない場合、DELETEは指定したテーブルの全ての行を削除し、テーブルを空にする。
+- 削除前に確認を求めるようなことは行わないため、誤削除に注意しなければならない。
+
+
+
+
