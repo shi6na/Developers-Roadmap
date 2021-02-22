@@ -17,7 +17,7 @@ Backendから調べていきます。
 
 ## [6. Relational Databases](https://github.com/shi6na/Developers-Roadmap/blob/master/06_relational_databases/intro.md)
 
-## 7. More about Databases
+## [7. More about Databases](https://github.com/shi6na/Developers-Roadmap/blob/master/07_more_about_databases/intro.md)
 
 ## 8. NoSQL Databases
 
