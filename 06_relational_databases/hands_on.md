@@ -426,6 +426,4 @@ DELETE FROM tablename;
 - 上記のように、条件がない場合、DELETEは指定したテーブルの全ての行を削除し、テーブルを空にする。
 - 削除前に確認を求めるようなことは行わないため、誤削除に注意しなければならない。
 
-
-
-
+## 次：[More about Databaes](https://github.com/shi6na/Developers-Roadmap/blob/master/07_more_about_databases/intro.md)
