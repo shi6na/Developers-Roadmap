@@ -351,6 +351,30 @@ ActiveRecord::RecordInvalid (Validation failed: Email can't be blank)
 
 ## Sharding Strategies
 
+> shard：陶片。陶器などの破片のこと。
+
+- データを複数のディスクに分割配置する。データベースにおける負荷分散方法の一種。水平分割とも。
+- 同じテーブルを複数のデータベースに用意し、1つのテーブルに保存していたレコードを分散する。
+- データベースへのリクエストを分散し、全体のスループットを上げる目的で利用される。
+
+![シャーディング](sharding_strategies.png)
+
+### 気をつけること
+
+- 他テーブルとのJOINが難しい
+- シャーディングの分割対象にした値以外での検索が難しくなる
+
+### スループット
+
+- 単位時間当たりに処理できる仕事量のこと。
+- コンピュータシステムが単位時間に実行出来る処理の件数や、通信回線の単位時間あたりの実行伝送量などを意味することが多い。
+
+### テーブルシャーディング
+
+- 同じDB内で同じカラム構成のテーブルを複数用意し、分散の対象の値をテーブル名に入れることで1テーブル内のデータ量を分散する。
+- テーブルとのJOINがどうしても必要で、シャーディングをしなければならない場合に有効。
+- なお、「シャーディング」といえば基本複数DBに同じテーブルを作成する前述の方法（DBシェーディング）が主流。
+
 ## N + 1 Probrem
 
 ## Database Nomalization
@@ -373,3 +397,5 @@ ActiveRecord::RecordInvalid (Validation failed: Email can't be blank)
 - [データレプリケーションとは？ メリットは？｜ITトレンド](https://it-trend.jp/data-replication/article/explain)
 - [フォールトトレラント設計 - Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%AB%E3%83%88%E3%83%88%E3%83%AC%E3%83%A9%E3%83%B3%E3%83%88%E8%A8%AD%E8%A8%88)
 - [レプリケーション - Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%AC%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)
+- [そもそも可用性とは何か？可用性を高める方法とは？ | ビジネス継続とITについて考える](https://bcblog.sios.jp/what-is-availability/)
+- [スケールアウトとは - IT用語辞典 e-Words](https://e-words.jp/w/%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%AB%E3%82%A2%E3%82%A6%E3%83%88.html)
