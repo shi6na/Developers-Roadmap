@@ -407,9 +407,9 @@ ActiveRecord::RecordInvalid (Validation failed: Email can't be blank)
 ### Q.じゃあ常にLazy Loadingを避けてEager loadingをしていれば良いのか
 
 - A.そうでもない。
-- 例えば、集約の一部の関連しか参照しない場合、Eager loadingをすると無駄なクエリの発行担ってしまうが、Lazy loadingをすればクエリの発行自体を抑えられるため、パフォーマンスでは有利になる。
+- 例えば、集約の一部の関連しか参照しない場合、Eager loadingをすると無駄なクエリの発行になってしまうが、Lazy loadingをすればクエリの発行自体を抑えられるため、パフォーマンスでは有利になる。
 - ただ、N+1問題が起こってしまうリスクはある。そのため、N+1問題が起こらないようにLazy loadingを実装すれば良い。
-- つまり、エンティティごとに個別に読み込みを遅延するのではなく、関連ごとに遅延すればいい。（らしい）（わからん）
+- つまり、エンティティごとに個別に読み込みを遅延するのではなく、関連ごとに遅延すればいい。
 
 ## Database Nomalization
 
@@ -443,3 +443,6 @@ ActiveRecord::RecordInvalid (Validation failed: Email can't be blank)
 - [スケールアウトとは - IT用語辞典 e-Words](https://e-words.jp/w/%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%AB%E3%82%A2%E3%82%A6%E3%83%88.html)
 - [シャーディング - Qiita](https://qiita.com/hharu/items/15627d2058bffe1fadf0)
 - [シャーディングとは、テーブルシャーディングという可能性【水平分割】 | SEO対策なら株式会社ペコプラ](https://pecopla.net/web-column/db-shard)
+- [ActiveRecordのjoinsとpreloadとincludesとeager_loadの違い - Qiita](https://qiita.com/k0kubun/items/80c5a5494f53bb88dc58)
+- [集約の実装とLazy Loading - emonkak's Blog](https://emonkak.hatenablog.com/entry/2017/10/01/113453)
+- [Railsライブラリ紹介: N+1問題を検出する「bullet」 | TECHSCORE BLOG](https://www.techscore.com/blog/2012/12/25/rails%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E7%B4%B9%E4%BB%8B-n1%E5%95%8F%E9%A1%8C%E3%82%92%E6%A4%9C%E5%87%BA%E3%81%99%E3%82%8B%E3%80%8Cbullet%E3%80%8D/)
