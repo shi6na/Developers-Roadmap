@@ -525,7 +525,7 @@ ActiveRecord::RecordInvalid (Validation failed: Email can't be blank)
 
 - ハッシュインデックス
 
-![ハッシュインデックス](r20_26-04.png)
+![ハッシュインデックス](r20_26-05.png)
 
 キー値からハッシュ関数で求めた値を使い、レコードの格納位置を決める。一意な値を検索するのが得意。シノニムに注意！
 
@@ -555,7 +555,6 @@ ActiveRecord::RecordInvalid (Validation failed: Email can't be blank)
 - [集約の実装とLazy Loading - emonkak's Blog](https://emonkak.hatenablog.com/entry/2017/10/01/113453)
 - [Railsライブラリ紹介: N+1問題を検出する「bullet」 | TECHSCORE BLOG](https://www.techscore.com/blog/2012/12/25/rails%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E7%B4%B9%E4%BB%8B-n1%E5%95%8F%E9%A1%8C%E3%82%92%E6%A4%9C%E5%87%BA%E3%81%99%E3%82%8B%E3%80%8Cbullet%E3%80%8D/)
 - [関係の正規化 - Wikipedia](https://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E3%81%AE%E6%AD%A3%E8%A6%8F%E5%8C%96)
-- [第4回　データベースの正規化](https://oss-db.jp/dojo/dojo_info_04)
 - [第4回　データベースの正規化](https://oss-db.jp/dojo/dojo_info_04)
 - [正規化の要点を理解する - Qiita](https://qiita.com/mochichoco/items/2904384b2856db2bf46c)
 - [インデックスの意味とメリット・デメリット | SQLite入門](https://www.dbonline.jp/sqlite/index/index1.html)
