@@ -19,9 +19,9 @@ Backendから調べていきます。
 
 ## [7. More about Databases](https://github.com/shi6na/Developers-Roadmap/blob/master/07_more_about_databases/intro.md)
 
-## 8. [WIP]NoSQL Databases
+## [8. NoSQL Databases](https://github.com/shi6na/Developers-Roadmap/blob/master/08_nosql_databases/intro.md)
 
-## 9. Learn about APIs
+## 9. [WIP] Learn about APIs
 
 .
 

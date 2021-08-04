@@ -33,6 +33,7 @@
 
 - JSONやXMLのような構造を持ったドキュメントを単位としてデータを格納する。
 - スキーマレスで格納できる。
+- スキーマ定義したいときもあるので、スキーマ定義できるものもある。（MongoDB）
 
 ### グラフ
 
@@ -59,11 +60,3 @@
 - [NoSQL - Wikipedia](https://ja.wikipedia.org/wiki/NoSQL)
 - [NoSQLとは？その特徴や利用するメリット、活用事例を解説](https://products.sint.co.jp/topsic/blog/nosql)
 - [スケールアップ とスケールアウト [データベース] | データベース アクセス ブログ](https://www.climb.co.jp/blog_dbmoto/archives/4810)
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
